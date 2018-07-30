@@ -1,0 +1,14 @@
+//establishing local settings to connect to Azure Cosmos DB
+{
+    "IsEncrypted": false,
+  "Values": {
+    // Key from Azure Storage account
+    "AzureWebJobsStorage": "your Storage key here",
+    // Connection string from Azure Storage account
+    "AzureWebJobsDashboard": "your Storage connection string here",
+    // Primary connection string from Azure Cosmos DB account
+    "DBConnection": "your Cosmos DB primary connection string here",
+    // Connection string-primary key from Azure Event Hub namespace
+    "EventHubNamespaceConnection": "your Event Hub namespace key here"
+  }
+}
