@@ -37,9 +37,9 @@ namespace ChangeFeedFunction
         [FunctionName("ChangeFeedProcessor")]
         public static void Run(
             [CosmosDBTrigger(databaseName: "database1",
-            collectionName: "collection1",
+            collectionName: "YOUR MAIN COLLECTION NAME HERE",
             ConnectionStringSetting = "DBconnection",
-            LeaseCollectionName = "leases")]IReadOnlyList<Document> documents, TraceWriter log)
+            LeaseCollectionName = "YOUR LEASES COLLECTION NAME HERE")]IReadOnlyList<Document> documents, TraceWriter log)
         {
             // Create variable to hold connection string to enable event hub namespace access.
 #pragma warning disable CS0618 // Type or member is obsolete
