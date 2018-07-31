@@ -69,9 +69,9 @@ You will be using [Azure Resource Manager](https://docs.microsoft.com/en-us/azur
 
 2. Clone this repository to your computer.  
 
-3. Open the repository that you just cloned, then navigate to **Azure Resource Manager**, and open the file called **parameters.json** in Visual Studio.  
+3. Open the repository that you just cloned, then navigate to **Azure Resource Manager**, and open the file called **parameters.json** in **Visual Studio**.  
 
-4. Fill in the blanks as indicated in **parameters.json**. You'll need to use the names that you give to each of your resources later. We recommend keeping this window available for use later in the lab.
+4. Fill in the blanks as indicated in **parameters.json**. You'll need to use the names that you give to each of your resources later. We recommend keeping this window available for your reference later in the lab.
 
 5. Open **Windows PowerShell** again, then navigate to **Azure Resource Manager** and run the following command:  
     ` .\deploy.ps1 `  
@@ -126,7 +126,7 @@ The lease collection coordinates processing the change feed across multiple work
 ## <a name="part3"></a>Part 3: Getting Storage Account Key and Connection String 
 Azure Storage accounts allow users to store data. In this lab, you will use a storage account to store data for the Azure Function. The Azure Function is triggered when any modification is made to the collection you created in Part 1, and in order for the Azure Function to do its job, it needs a place to store its work.
 
-1. Return to your resource group and open the **Storage Account** name you created in the prelab.
+1. Return to your resource group and open the **Storage Account** that you created and named in the prelab.
 
 2. Select **Access keys** from 
    the menu on the left-hand side.
@@ -318,7 +318,7 @@ Power BI is a suite of business analytics tools to analyze data and share insigh
 		   
 	Then click **Edit query** and paste the following queries under the one you already wrote.   
 	   
-	Note:   
+	**Note:**   
 	   
 	The **TOP 5** query calculates the top 5 items, ranked by the number of times that they have been purchased. This metric can help e-commerce companies evaluate which items are most popular and can influence the company's advertising, pricing, and inventory decisions.   
 				
