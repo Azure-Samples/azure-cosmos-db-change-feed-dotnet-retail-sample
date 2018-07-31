@@ -466,7 +466,7 @@ In order to build the e-commerce site, you'll use a Cosmos DB database to store 
 
 	Add in the **collection and database names**. (These names should be **collection1** and **database1** unless you chose to name yours differently.) Fill in your your products, categories, and Top Items collections. Those names should be **products**, **categories**, and **topitems** unless you chose different names. 
 
-	![webapp2](/Lab/labpics/webapp14.png)  
+	![webapp2](/Lab/labpics/webapp14.PNG)  
 
 
 8. Navigate to and open the **Checkout folder** and open the **Web.config** file.
