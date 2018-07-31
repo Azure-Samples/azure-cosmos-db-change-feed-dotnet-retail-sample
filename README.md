@@ -47,7 +47,7 @@ This lab will proceed as follows:
 [Part 1: Creating a Database and Collection To Load Data Into](#part1)   
 [Part 2: Creating a Leases Collection for Change Feed Processing](#part2)   
 [Part 3: Getting Storage Account Key and Connection String](#part3)  
-[Part 4: Setting Up Event Hub](#part4)  
+[Part 4: Getting Event Hub Information](#part4)  
 [Part 5: Setting Up Azure Function with Cosmos DB Account](#part5)  
 [Part 6: Inserting Simulated Data into Cosmos DB in Real Time](#part6)  
 [Part 7: Setting Up Azure Stream Analytics and Data Analysis Visualization](#part7)  
@@ -139,29 +139,16 @@ Azure Storage accounts allow users to store data. In this lab, you will use a st
 
 ---
  
-## <a name="part4"></a>Part 4: Setting Up Event Hub
+## <a name="part4"></a>Part 4: Getting Event Hub Information
 An Azure Event Hub is exactly what it sounds like. It receives event data, stores event data, processes event data, and forwards event data. In this lab, the Event Hub will receive a document every time a new event occurs (i.e. an item is viewed by a user, added to a user's cart, or purchased by a user) and then will forward that document to Azure Stream Analytics.
 
-1. Return to your resource group and open the **Event Hub Namespace** name you created in the prelab .
-
-2. In the Event Hub Namespace, click the button to add an Event Hub as demonstrated below.
-	
-	![eventhub5](/Lab/labpics/eventhub5.png)
-
-3. To create an Event Hub within this namespace, perform the following actions:  
-    	a. In the **name** field, enter **event-hub1**.   
-		b. Leave **partition count** at **2**.   
-		c. Leave **message retention** at **1**.   
-		d. Leave **Capture** set to **off**.  
-		e. Click the **Create** button.
-	
-	![eventhub6](/Lab/labpics/eventhub6.png)  
-
-4. Select **Shared access policies** from the menu on the left-hand side.
+1. Return to your resource group and open the **Event Hub Namespace** that you created and named in the prelab .
+   
+2. Select **Shared access policies** from the menu on the left-hand side.
 	
 	![eventhub7](/Lab/labpics/eventhub7.png)  
 
-5. Select **RootManageSharedAccessKey**. Take the **Connection string-primary key** and copy it to a notepad or another document that you will have access to throughout the lab. You should label it **Event Hub Info**. You'll need to copy the string into your code later, so please take note and remember where you  are storing it.
+3. Select **RootManageSharedAccessKey**. Take the **Connection string-primary key** and copy it to a notepad or another document that you will have access to throughout the lab. You should label it **Event Hub Info**. You'll need to copy the string into your code later, so please take note and remember where you  are storing it.
 	
 	![eventhub8](/Lab/labpics/eventhub8.png)  
 
@@ -175,20 +162,16 @@ When a new document is created or modifications are made to a current document i
 3. Navigate to **local.settings.json** in Visual Studio. Then use the values you recorded earlier to fill in the blanks.
 4. Navigate to **ChangeFeedProcessor.cs**. In the parameters for the **Run** function, perform the following actions:   
    
-	a. Replace the text **FILL IN YOUR EVENT HUB NAME** with the name of your event hub. If you followed earlier instructions, the name of your event hub is **event-hub1**.   
+	a. Replace the text **YOUR MAIN COLLECTION NAME HERE** with the name of your main collection. If you followed earlier instructions, the name of your collection is **collection1**.   
    
-	b. Replace the text **FILL IN YOUR DATABASE NAME** with the name of your database. If you followed earlier instructions, the name of your database is **database1**.   
+	b. Replace the text **YOUR LEASES COLLECTION NAME HERE** with the name of your leases collection. If you followed earlier instructions, the name of your leases collection is **leases**.   
    
-	c. Replace the text **FILL IN YOUR COLLECTION NAME** with the name of your collection. If you followed earlier instructions, the name of your collection is **collection1**.   
+	c. At the top of Visual Studio, make sure that the Startup Project box on the left of the green arrow says **ChangeFeedFunction**, and if it says something else, arrow down and click on **ChangeFeedFunction**.   
    
-	d. Replace the text **LEASES COLLECTION NAME HERE** with the name of your leases collection. If you followed earlier instructions, the name of your leases collection is **leases**.   
-   
-	e. At the top of Visual Studio, make sure that the Startup Project box on the left of the green arrow says **ChangeFeedAzureFunction**, and if it says something else, arrow down and click on **ChangeFeedAzureFunction**.   
-   
-	f. Press the start button at the top of the page to run the program. It will look like this green triangle:
+	d. Press the start button at the top of the page to run the program. It will look like this green triangle:
 	![startbutton](/Lab/labpics/startbutton.PNG)   
    
-	g. You will know the function is running when the console app says "Job host started" at the bottom.
+	e. You will know the function is running when the console app says "Job host started" at the bottom.
 		 
 ---
 
