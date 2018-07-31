@@ -93,7 +93,7 @@ An Azure Cosmos DB collection is a container for data records. You will now crea
 	![collection1](/Lab/labpics/collection1.png)  
 
 2. Navigate to **Overview** from the menu on the left-hand side.  
-	![collection2](/Lab/labpics/collection2.png)  
+	![collection2](/Lab/labpics/collection2.PNG)  
 
 
 3. Select **New Collection** from the menu on the top of the page. Then perform the following actions:   
@@ -186,7 +186,7 @@ When a new document is created or modifications are made to a current document i
 	d. Replace the text **LEASES COLLECTION NAME HERE** with the name of your leases collection. If you followed earlier instructions, the name of your leases collection is **leases**.   
 	e. At the top of Visual Studio, make sure that the Startup Project box on the left of the green arrow says **ChangeFeedAzureFunction**, and if it says something else, arrow down and click on **ChangeFeedAzureFunction**.   
 	f. Press the start button at the top of the page to run the program. It will look like this green triangle:
-	![startbutton](/Lab/labpics/startbutton.png)   
+	![startbutton](/Lab/labpics/startbutton.PNG)   
 	g. You will know the function is running when the console app says "Job host started" at the bottom.
 		 
 ---
@@ -208,7 +208,7 @@ and purchasing the items in their carts. This data is arbitrary and for the purp
 
 5. Take the **URI** and **PRIMARY KEY** and copy it to a notepad or another document that you will have access to throughout this part of the lab. You'll need it for step 11.
 	
-	![codes](/Lab/labpics/data13.png)   
+	![codes](/Lab/labpics/data13.PNG)   
 
 6. Return to **Visual Studio**.  
 
@@ -230,7 +230,7 @@ and purchasing the items in their carts. This data is arbitrary and for the purp
 
 12. Wait for the program to run. The stars mean that data is coming in!  
 	
-	![data8](/Lab/labpics/data8.png)  
+	![data8](/Lab/labpics/data8.PNG)  
 
 
 13. If you navigate to the Cosmos DB account within your resource group, you will see the randomized data imported in collection1!   
@@ -410,20 +410,20 @@ In order to build the e-commerce site, you'll use a Cosmos DB database to store 
 1. Navigate back to the **Azure Portal**, then to your **Cosmos DB account**, then to **Data Explorer**. Add three more collections under **database1** and  label them **products**, **categories**, selecting **Fixed** for Storage capacity.  
    Create one more collection under **database1** titled **topitems** and select **Unlimited** for Storage capacity and **/Item** for Partition key. Now, database1 should have the following collections.  
 
-	![webapp1](/Lab/labpics/webapp11.png) 
+	![webapp1](/Lab/labpics/webapp11.PNG) 
 
 2. Click on the **topitems** collection, and under **Scale and Settings** set the **Time to Live** to be **30 seconds** so that topitems updates every 30 seconds. Feel free to make this longer or shorter, but make sure the time to live matches both of the TumblingWindow values in the query in **Step 4**.  
 
-	![webapp1](/Lab/labpics/webapp15.png)  
+	![webapp1](/Lab/labpics/webapp15.PNG)  
 
 3. In order to populate the **topitems** collection with the most frequently purchased items, navigate back to **streamjob1** and add a new **Output**. Select **Cosmos DB**.
 
-	![webapp1](/Lab/labpics/webapp12.png) 
+	![webapp1](/Lab/labpics/webapp12.PNG) 
 
 
 4. Fill in the required fields as pictured below.
 
-	![webapp1](/Lab/labpics/webapp13.png) 
+	![webapp1](/Lab/labpics/webapp13.PNG) 
 
 5. In **streamjob1**, select **Edit query** and paste the following query in your Azure Stream Analytics query editor above the queries you have already included.   
 	**Note**: This might look similar to a query you have already inserted, but make sure that it is outputting **INTO topitems** collection.   
@@ -458,7 +458,7 @@ In order to build the e-commerce site, you'll use a Cosmos DB database to store 
 
 6. Open "EcommerceWebApp.sln" and navigate to the **Web.config** file in the **Solution Explorer**.
 
-	![webapp1](/Lab/labpics/webapp1.png)  
+	![webapp1](/Lab/labpics/webapp1.PNG)  
 
 7. Within the `<appSettings>` block, add the **URI** and unique **PRIMARY KEY** that you saved.   
 
@@ -469,13 +469,13 @@ In order to build the e-commerce site, you'll use a Cosmos DB database to store 
 
 8. Navigate to and open the **Checkout folder** and open the **Web.config** file.
 
-	![webapp3](/Lab/labpics/webapp3.png)  
+	![webapp3](/Lab/labpics/webapp3.PNG)  
 
 9. Within the `<appSettings>` block, add the **URI** and unique **PRIMARY KEY** that you just saved.   
 
 	Add in the **collection and database names**. (These names should be **collection1** and **database1** unless you chose to name yours differently.)
  
-	![webapp4](/Lab/labpics/webapp4.png)  
+	![webapp4](/Lab/labpics/webapp4.PNG)  
 
 
 10. Press the green triangle start button at the top of the page to run the program.  
