@@ -11,6 +11,9 @@
         "database_name": {
             "value": "Fill in a database name here"
         },
+        "streamjob_name": {
+            "value": "Fill in a stream job name here"
+        },
         "storageaccount_name": {
             "value": "Fill in a storage account name here" //This needs to be a globally unique value, so try including your name and various numbers to get an acceptable name on the first try.
         },
@@ -22,6 +25,9 @@
         },
         "consumergroups_$Default_name": {
             "value": "$Default"
+        },
+        "streamingUnits": {
+            "value": 1
         }
     }
 }
