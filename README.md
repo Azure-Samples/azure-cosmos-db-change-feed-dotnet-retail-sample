@@ -240,7 +240,7 @@ Azure Stream Analytics is a fully managed cloud service for real-time processing
     	a. In the **Input** alias field, enter **input**.   
 		b. Select the option for **Select Event Hub from your subscriptions**.  
     	c. Set the **Subscription** field to your subscription.  
-    	d. In the **Event Hub namespace** field, enter the name of your Event Hub Namespace you created during the prelab.   
+    	d. In the **Event Hub namespace** field, enter the name of your Event Hub Namespace that you created during the prelab.   
 		e. In the **Event Hub name** field, select the option for **Use existing** and choose **event-hub1** from the drop-down menu.  
     	f. Leave **Event Hub policy name** field set to its default value.  
     	g. Leave **Event serialization format** as **JSON**.  
