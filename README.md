@@ -244,28 +244,16 @@ and purchasing the items in their carts. This data is arbitrary and for the purp
 ## <a name="part7"></a>Part 7: Setting Up Azure Stream Analytics and Data Analysis Visualization
 Azure Stream Analytics is a fully managed cloud service for real-time processing of streaming data. In this lab, you will use ASA to process new events from the Event Hub (i.e. when an item is viewed, added to a cart, or purchased), incorporate those events into real-time data analysis, and send them into Power BI for visualization.
 
-1. Select **Create resource** from the left sidebar of the portal. Then search and select **Stream Analytics Job**. Click the **Create** button.
-	
-	![asa1](/Lab/labpics/asa1.png)  
+1. On **Azure Portal**, navigate to your resource group, then to **streamjob1** (the stream analytics job that you created in the prelab).   
 
-2. To create a new Stream Analytics Job, perform the following actions:  
-    	a. In the **Job name**, enter **streamjob1**.  
-    	b. Set the **Subscription** field to your subscription.  
-    	c. Under **Resource group**, select **Use existing** and select **changefeedlab** from the drop-down menu.  
-      	d. Leave the **Hosting environment** field set to **Cloud**.  
-      	e. Leave **Streaming units** at **1**.  
-		f. Click **Create**.  
-	
-	![asa2](/Lab/labpics/asa2.png)  
-
-3. Once you're inside **streamjob1**, select **Inputs** as demonstrated below.
+2. Select **Inputs** as demonstrated below.
 	
 	![asa3](/Lab/labpics/asa3.png)  
 
-4. Select **+ Add stream input**. Then select **Event Hub** from the drop-down menu.
+3. Select **+ Add stream input**. Then select **Event Hub** from the drop-down menu.
 	
 	![asa4](/Lab/labpics/asa4.png)
-5. To add a new input to the stream analytics job, perform the following actions:  
+4. To add a new input to the stream analytics job, perform the following actions:  
     	a. In the **Input** alias field, enter **input**.   
 		b. Select the option for **Select Event Hub from your subscriptions**.  
     	c. Set the **Subscription** field to your subscription.  
@@ -279,15 +267,15 @@ Azure Stream Analytics is a fully managed cloud service for real-time processing
 
 ![PowerBIInput](/Lab/labpics/PowerBIInput.png)
 
-6. Navigate back to the stream analytics job page, and select **Outputs** as demonstrated below.
+5. Navigate back to the stream analytics job page, and select **Outputs** as demonstrated below.
 	
 	![asa5](/Lab/labpics/asa5.png)
 	
-7. Select **+ Add**. Then select  **Power BI** from the drop-down menu.
+6. Select **+ Add**. Then select  **Power BI** from the drop-down menu.
 	
 	![asa6](/Lab/labpics/asa6.png)
 
-8. To create a new Power BI output to visualize average price, perform the following actions:  
+7. To create a new Power BI output to visualize average price, perform the following actions:  
     	a. In the **Output alias** field, enter **averagePriceOutput**.  
     	b. Leave the **Group workspace** field set to **Authorize connection to load workspaces**.   
 		c. In the **Dataset name** field, enter **averagePrice**.  
@@ -298,11 +286,11 @@ Azure Stream Analytics is a fully managed cloud service for real-time processing
 ![PowerBIOutput](/Lab/labpics/PowerBIOutput.png)
 
 
-9. Then go back to **streamjob1** and click **Edit query**.
+8. Then go back to **streamjob1** and click **Edit query**.
 
 	![asa8](/Lab/labpics/asa8.png)
 
-10. Paste the following query into the query window. Then click **Save** in the upper left-hand corner.   
+9. Paste the following query into the query window. Then click **Save** in the upper left-hand corner.   
    
 	Note:   
 		
@@ -314,9 +302,9 @@ Azure Stream Analytics is a fully managed cloud service for real-time processing
 		FROM input  
 		GROUP BY Action, TumblingWindow(second,5) 
 
-13. Now return to **streamjob1** and click the **Start** button at the top of the page. Azure Stream Analytics can take a few minutes to start up, but eventually you will see it change from "Starting" to "Running". Then proceed to [Power BI](http://powerbi.microsoft.com "Power BI")
+10. Now return to **streamjob1** and click the **Start** button at the top of the page. Azure Stream Analytics can take a few minutes to start up, but eventually you will see it change from "Starting" to "Running". Then proceed to [Power BI](http://powerbi.microsoft.com "Power BI")
 
-14. Once the stream is running, go back to **DataGenerator.exe** and if the program has ended, start it **again**. 
+11. Once the stream is running, go back to **DataGenerator.exe** and if the program has ended, start it **again**. 
 ---
 
 ## <a name="part8"></a>Part 8: Connecting to PowerBI
