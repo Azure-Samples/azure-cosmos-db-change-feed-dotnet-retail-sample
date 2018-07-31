@@ -1,108 +1,142 @@
-{
-    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-    "contentVersion": "1.0.0.0",
-    "parameters": {
-        "cosmosdbaccount_name": {
-            "defaultValue": null,
-            "type": "SecureString"
-        },
-        "eventhubnamespace_name": {
-            "defaultValue": null,
-            "type": "String"
-        },
-        "database_name": {
-            "defaultValue": null,
-            "type": "String"
-        },
-        "storageaccount_name": {
-            "defaultValue": null,
-            "type": "String"
-        },
-        "eventhub_name": {
-            "defaultValue": null,
-            "type": "String"
-        },
-        "AuthorizationRules_RootManageSharedAccessKey_name": {
-            "defaultValue": "RootManageSharedAccessKey",
-            "type": "String"
-        },
-        "consumergroups_$Default_name": {
-            "defaultValue": "$Default",
-            "type": "String"
-        }
+
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+      "cosmosdbaccount_name": {
+      "defaultValue": null,
+      "type": "SecureString"
     },
-    "variables": {},
-    "resources": [
-        {
-            "type": "Microsoft.DocumentDB/databaseAccounts",
-            "kind": "GlobalDocumentDB",
-            "name": "[parameters('cosmosdbaccount_name')]",
-            "apiVersion": "2015-04-08",
-            "location": "West US",
-            "tags": {
-                "defaultExperience": "DocumentDB"
-            },
-            "scale": null,
-            "properties": {
-                "databaseAccountOfferType": "Standard",
-                "consistencyPolicy": {
-                    "defaultConsistencyLevel": "Session",
-                    "maxIntervalInSeconds": 5,
-                    "maxStalenessPrefix": 100
-                },
-                "name": "[parameters('cosmosdbaccount_name')]"
-            },
-            "dependsOn": []
+    "eventhubnamespace_name": {
+      "defaultValue": null,
+      "type": "String"
+    },
+    "database_name": {
+      "defaultValue": null,
+      "type": "String"
+    },
+    "streamjob_name": {
+      "defaultValue": null,
+      "type": "String"
+    },
+    "storageaccount_name": {
+      "defaultValue": null,
+      "type": "String"
+    },
+    "eventhub_name": {
+      "defaultValue": null,
+      "type": "String"
+    },
+    "AuthorizationRules_RootManageSharedAccessKey_name": {
+      "defaultValue": "RootManageSharedAccessKey",
+      "type": "String"
+    },
+    "consumergroups_$Default_name": {
+      "defaultValue": "$Default",
+      "type": "String"
+    },
+    "streamingUnits": {
+      "defaultValue": 1,
+      "type":  "int"
+    }
+  },
+  "variables": {},
+  "resources": [
+    {
+      "type": "Microsoft.DocumentDB/databaseAccounts",
+      "kind": "GlobalDocumentDB",
+      "name": "[parameters('cosmosdbaccount_name')]",
+      "apiVersion": "2015-04-08",
+      "location": "West US",
+      "tags": {
+        "defaultExperience": "DocumentDB"
+      },
+      "scale": null,
+      "properties": {
+        "databaseAccountOfferType": "Standard",
+        "consistencyPolicy": {
+          "defaultConsistencyLevel": "Session",
+          "maxIntervalInSeconds": 5,
+          "maxStalenessPrefix": 100
         },
-        {
-            "type": "Microsoft.EventHub/namespaces",
-            "sku": {
-                "name": "Standard",
-                "tier": "Standard",
-                "capacity": 1
-            },
-            "name": "[parameters('eventhubnamespace_name')]",
-            "apiVersion": "2017-04-01",
-            "location": "West US",
-            "tags": {},
-            "scale": null,
-            "properties": {
-                "isAutoInflateEnabled": false,
-                "maximumThroughputUnits": 0
-            },
-            "dependsOn": []
+        "name": "[parameters('cosmosdbaccount_name')]"
+      },
+      "dependsOn": []
+    },
+    {
+      "type": "Microsoft.EventHub/namespaces",
+      "sku": {
+        "name": "Standard",
+        "tier": "Standard",
+        "capacity": 1
+      },
+      "name": "[parameters('eventhubnamespace_name')]",
+      "apiVersion": "2017-04-01",
+      "location": "West US",
+      "tags": {},
+      "scale": null,
+      "properties": {
+        "isAutoInflateEnabled": false,
+        "maximumThroughputUnits": 0
+      },
+      "dependsOn": []
+    },
+    {
+      "type": "Microsoft.Storage/storageAccounts",
+      "sku": {
+        "name": "Standard_LRS",
+        "tier": "Standard"
+      },
+      "kind": "Storage",
+      "name": "[parameters('storageaccount_name')]",
+      "apiVersion": "2018-02-01",
+      "location": "West US",
+      "tags": {},
+      "scale": null,
+      "properties": {
+        "networkAcls": {
+          "bypass": "AzureServices",
+          "virtualNetworkRules": [],
+          "ipRules": [],
+          "defaultAction": "Allow"
         },
-        {
-            "type": "Microsoft.Storage/storageAccounts",
-            "sku": {
-                "name": "Standard_LRS",
-                "tier": "Standard"
+        "supportsHttpsTrafficOnly": false,
+        "encryption": {
+          "services": {
+            "file": {
+              "enabled": true
             },
-            "kind": "Storage",
-            "name": "[parameters('storageaccount_name')]",
-            "apiVersion": "2018-02-01",
-            "location": "westus",
-            "tags": {},
+            "blob": {
+              "enabled": true
+            }
+          },
+          "keySource": "Microsoft.Storage"
+        }
+      },
+      "dependsOn": []
+    },
+        {
+            "type": "Microsoft.StreamAnalytics/streamingjobs",
+            "name": "[parameters('streamjob_name')]",
+            "apiVersion": "2016-03-01",
+            "location": "West US",
             "scale": null,
             "properties": {
-                "networkAcls": {
-                    "bypass": "AzureServices",
-                    "virtualNetworkRules": [],
-                    "ipRules": [],
-                    "defaultAction": "Allow"
+                "sku": {
+                    "name": "Standard"
                 },
-                "supportsHttpsTrafficOnly": false,
-                "encryption": {
-                    "services": {
-                        "file": {
-                            "enabled": true
-                        },
-                        "blob": {
-                            "enabled": true
-                        }
-                    },
-                    "keySource": "Microsoft.Storage"
-                }
+                "eventsOutOfOrderPolicy": "Adjust",
+                "outputErrorPolicy": "Stop",
+                "eventsOutOfOrderMaxDelayInSeconds": 0,
+                "eventsLateArrivalMaxDelayInSeconds": 5,
+                "dataLocale": "en-US",
+                "compatibilityLevel": "1.0",
+                "transformation": {
+                    "name": "Transformation",
+                    "properties": {
+                        "query": "SELECT\r\n    *\r\nINTO\r\n    [YourOutputAlias]\r\nFROM\r\n    [YourInputAlias]",
+                        "streamingUnits": "[parameters('streamingUnits')]"
+                    }
+                } 
             },
             "dependsOn": []
         },
@@ -123,21 +157,21 @@
                 "[resourceId('Microsoft.EventHub/namespaces', parameters('eventhubnamespace_name'))]"
             ]
         },
-        {
-            "type": "Microsoft.EventHub/namespaces/eventhubs",
-            "name": "[concat(parameters('eventhubnamespace_name'), '/', parameters('eventhub_name'))]",
-            "apiVersion": "2017-04-01",
-            "location": "West US",
-            "scale": null,
-            "properties": {
-                "messageRetentionInDays": 1,
-                "partitionCount": 2,
-                "status": "Active"
-            },
-            "dependsOn": [
-                "[resourceId('Microsoft.EventHub/namespaces', parameters('eventhubnamespace_name'))]"
-            ]
+      {
+        "type": "Microsoft.EventHub/namespaces/eventhubs",
+        "name": "[concat(parameters('eventhubnamespace_name'), '/', parameters('eventhub_name'))]",
+        "apiVersion": "2017-04-01",
+        "location": "West US",
+        "scale": null,
+        "properties": {
+          "messageRetentionInDays": 1,
+          "partitionCount": 2,
+          "status": "Active"
         },
+        "dependsOn": [
+          "[resourceId('Microsoft.EventHub/namespaces', parameters('eventhubnamespace_name'))]"
+        ]
+      },
         {
             "type": "Microsoft.EventHub/namespaces/eventhubs/consumergroups",
             "name": "[concat(parameters('eventhubnamespace_name'), '/', parameters('eventhub_name'), '/', parameters('consumergroups_$Default_name'))]",
