@@ -1,28 +1,30 @@
-
+{
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-      "cosmosdbaccount_name": {
+    "cosmosdbaccount_name": {
       "defaultValue": null,
-      "type": "SecureString"
+      "type": "String"
     },
+
     "eventhubnamespace_name": {
       "defaultValue": null,
       "type": "String"
     },
     "database_name": {
       "defaultValue": null,
-      "type": "String"
+      "type": "SecureString"
     },
-    "streamjob_name": {
-      "defaultValue": null,
-      "type": "String"
-    },
+
     "storageaccount_name": {
       "defaultValue": null,
       "type": "String"
     },
     "eventhub_name": {
+      "defaultValue": null,
+      "type": "String"
+    },
+    "streamjob_name": {
       "defaultValue": null,
       "type": "String"
     },
@@ -36,7 +38,7 @@
     },
     "streamingUnits": {
       "defaultValue": 1,
-      "type":  "int"
+      "type": "int"
     }
   },
   "variables": {},
