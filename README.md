@@ -10,7 +10,7 @@ New to Azure Cosmos DB? We recommend checking out [Cosmos DB](https://docs.micro
 
 New to the Cosmos DB change feed feature? We recommend checking out [Change Feed](https://azure.microsoft.com/en-us/resources/videos/azure-cosmosdb-change-feed/ "Change Feed")
 
-![ProjectDiagram](/Lab/labpics/ProjectVisual.png)
+![ProjectDiagram](/Lab/labpics/ProjectVisual.PNG)
 
 This lab will proceed as follows:
 1. **Data Generation**: You will simulate data that represents events such as a user viewing an item, adding an item to their cart, and purchasing an item. You will do this in two ways.      
