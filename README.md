@@ -1,4 +1,3 @@
-
 # Change Feed Lab
     
 ####  The Azure Cosmos DB change feed is a mechanism for getting a continuous and incremental feed of records from a Cosmos DB container as those records are being created or modified.   
@@ -51,7 +50,7 @@ This lab will proceed as follows:
 [Part 4: Setting Up Event Hub](#part4)  
 [Part 5: Setting Up Azure Function with Cosmos DB Account](#part5)  
 [Part 6: Inserting Simulated Data into Cosmos DB in Real Time](#part6)  
-[Part 7: Setting Up Azure Stream Analytics And Data Analysis Visualization](#part7)  
+[Part 7: Setting Up Azure Stream Analytics and Data Analysis Visualization](#part7)  
 [Part 8: Connecting to PowerBI](#part8)   
 [Part 9: Visualizing with a Real E-Commerce Site (OPTIONAL)](#part9)
 
@@ -68,27 +67,27 @@ You will be using [Azure Resource Manager](https://docs.microsoft.com/en-us/azur
 
 2. Exit Windows PowerShell.  
 
-2. Clone [this repository](https://cosmosdb.visualstudio.com/Cosmic%20Explorer/_git/CosmicExplorer) to your computer.  
+2. Clone this repository to your computer.  
 
-3. Open the repository that you just cloned, then navigate to **ARM Files**, open the folder called **ExportedTemplate**, then open the file called **parameters.json** in Visual Studio.  
+3. Open the repository that you just cloned, then navigate to **Azure Resource Manager**, and open the file called **parameters.json** in Visual Studio.  
 
 4. Fill in the blanks as indicated in **parameters.json**. You'll need to use the names that you give to each of your resources later. We recommend keeping this window available for use later in the lab.
 
-5. Open **Windows PowerShell** again, then navigate to the **ExportedTemplate** folder within **ARM Files** and run the following command:  
+5. Open **Windows PowerShell** again, then navigate to **Azure Resource Manager** and run the following command:  
     ` .\deploy.ps1 `  
 
-6. Once prompted, enter the **Subcription ID** for your Azure subscription (available on Azure portal), **"changefeedlab"** for your resource group name, and **"run1"** for your deployment name.   
+6. Once prompted, enter the **Subcription ID** for your Azure subscription (available on [Azure Portal ](http://ms.portal.azure.com "Azure Portal ")), **"changefeedlab"** for your resource group name, and **"run1"** for your deployment name.   
    
-7. To create a new resource group, PowerShell will prompt you to enter a **location**. At this point, enter **WestUS**.   
+	**Note:** If you are having trouble finding your **Subscription ID**, go to the [Azure Portal](http://ms.portal.azure.com "Azure Portal") and search for **Subscriptions**, then select your subscription. You will see the **Subscription ID** in your subscription **Overview**.   
    
-8. The resources will begin to deploy. This may take up to 10 minutes.
+7. The resources will begin to deploy. This may take up to 10 minutes.
 
 ---
 
 ## <a name="part1"></a>Part 1: Creating A Database and Collection To Load Data Into 
 An Azure Cosmos DB collection is a container for data records. You will now create a collection to hold e-commerce site events. You are building this collection so that, when a user views an item, adds an item to their cart, or purchases an item, the collection will receive a record that includes the action ("viewed", "added", or "purchased"), the name of the item involved, the price of the item involved, and the ID number of the user cart involved. 
 
-1. Navigate to [Azure Portal ](http://ms.portal.azure.com "Azure Portal "). Then search for and select your Azure Cosmos DB Account name you created in the prelab.
+1. Navigate to [Azure Portal](http://ms.portal.azure.com "Azure Portal "). Then search for and select your **Azure Cosmos DB Account** that you created and named in the prelab.
 
 	![collection1](/Lab/labpics/collection1.png)  
 
@@ -145,16 +144,11 @@ An Azure Event Hub is exactly what it sounds like. It receives event data, store
 
 1. Return to your resource group and open the **Event Hub Namespace** name you created in the prelab .
 
-2. In the event hub namespace, click the button to add an event hub as demonstrated below.
+2. In the Event Hub Namespace, click the button to add an Event Hub as demonstrated below.
 	
-	![eventhub5](/Lab/labpics/eventhub5.png)  
- created in the prelab .
+	![eventhub5](/Lab/labpics/eventhub5.png)
 
-2. In the event hub namespace, click the button to add an event hub as demonstrated below.
-	
-	![eventhub5](/Lab/labpics/eventhub5.png)  
-
-3. To create an event hub within this namespace, perform the following actions:  
+3. To create an Event Hub within this namespace, perform the following actions:  
     	a. In the **name** field, enter **event-hub1**.   
 		b. Leave **partition count** at **2**.   
 		c. Leave **message retention** at **1**.   
@@ -176,17 +170,24 @@ An Azure Event Hub is exactly what it sounds like. It receives event data, store
 ## <a name="part5"></a>Part 5: Setting Up Azure Function with Cosmos DB Account
 When a new document is created or modifications are made to a current document in a Cosmos DB collection, the change feed automatically adds that modified document to its history of collection changes. You will now build and run an Azure Function that processes the change feed. When a document is created or modified in the collection you created, the Azure Function will be triggered by the change feed. Then the Azure Function will send the modified document to the Event Hub.   
 
-1. Return the the folder **ChangeFeedLab** you cloned on your device.
-2. Right-click the file named **ChangeFeedFunction.sln** and select **Open With Visual Studio**.
+1. Return to the repository that you cloned on your device.
+2. Right-click the file named **ChangeFeedLabSolution.sln** and select **Open With Visual Studio**.
 3. Navigate to **local.settings.json** in Visual Studio. Then use the values you recorded earlier to fill in the blanks.
 4. Navigate to **ChangeFeedProcessor.cs**. In the parameters for the **Run** function, perform the following actions:   
+   
 	a. Replace the text **FILL IN YOUR EVENT HUB NAME** with the name of your event hub. If you followed earlier instructions, the name of your event hub is **event-hub1**.   
+   
 	b. Replace the text **FILL IN YOUR DATABASE NAME** with the name of your database. If you followed earlier instructions, the name of your database is **database1**.   
+   
 	c. Replace the text **FILL IN YOUR COLLECTION NAME** with the name of your collection. If you followed earlier instructions, the name of your collection is **collection1**.   
+   
 	d. Replace the text **LEASES COLLECTION NAME HERE** with the name of your leases collection. If you followed earlier instructions, the name of your leases collection is **leases**.   
+   
 	e. At the top of Visual Studio, make sure that the Startup Project box on the left of the green arrow says **ChangeFeedAzureFunction**, and if it says something else, arrow down and click on **ChangeFeedAzureFunction**.   
+   
 	f. Press the start button at the top of the page to run the program. It will look like this green triangle:
 	![startbutton](/Lab/labpics/startbutton.PNG)   
+   
 	g. You will know the function is running when the console app says "Job host started" at the bottom.
 		 
 ---
@@ -195,13 +196,14 @@ When a new document is created or modifications are made to a current document i
 To see how the change feed processes new actions on an e-commerce site, you will simulate data that represents users viewing items from the product catalog, adding those items to their carts, 
 and purchasing the items in their carts. This data is arbitrary and for the purpose of replicating what data on an Ecommerce site would look like. 
 
-1. Navigate back to the **ChangeFeedLab** folder, and open double-click **ChangeFeedFunction.sln** to open it **again** in a new Visual Studio window.   
-**Note:** Yes, we know it may seem weird to have the same solution open in two windows! But it is necessary so that you can run two programs within the solution at the same time.
+1. Navigate back to the repository in File Explorer, and right-click **ChangeFeedFunction.sln** to open it **again** in a new Visual Studio window.   
+   
+   **Note:** Yes, we know it may seem weird to have the same solution open in two windows! But it is necessary so that you can run two programs within the solution at the same time.
 	
 	![data1](/Lab/labpics/data1.png)  
 
-2. Navigate to [Azure Portal ](http://ms.portal.azure.com "Azure Portal ")  
-3.  Go to the resource group created earlier in the lab, and navigate to your Azure Cosmos DB account you created during the prelab.
+2. Navigate to [Azure Portal ](http://ms.portal.azure.com "Azure Portal ").
+3.  Navigate to the **resource group** that you created during the prelab, and then navigate to the **Azure Cosmos DB account** that you created during the prelab.
 4. Select **Keys**.   
 	
 	![data5](/Lab/labpics/data5.png)  
@@ -239,10 +241,10 @@ and purchasing the items in their carts. This data is arbitrary and for the purp
 	
 ---
 
-## <a name="part7"></a>Part 7: Setting Up Azure Stream Analytics And Data Analysis Visualization
+## <a name="part7"></a>Part 7: Setting Up Azure Stream Analytics and Data Analysis Visualization
 Azure Stream Analytics is a fully managed cloud service for real-time processing of streaming data. In this lab, you will use ASA to process new events from the Event Hub (i.e. when an item is viewed, added to a cart, or purchased), incorporate those events into real-time data analysis, and send them into Power BI for visualization.
 
-1. Select **Create resource** from the left sidebar of the portal. Then search and select **Stream Analytics job**. Click the **Create** button.
+1. Select **Create resource** from the left sidebar of the portal. Then search and select **Stream Analytics Job**. Click the **Create** button.
 	
 	![asa1](/Lab/labpics/asa1.png)  
 
