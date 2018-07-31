@@ -33,7 +33,7 @@ This lab will proceed as follows:
 6. **Azure Stream Analytics**: You will write queries by which Azure Stream Analytics will process events and build a real-time data analysis. It will send that analysis to [Microsoft Power BI](https://docs.microsoft.com/en-us/power-bi/ "Microsoft Power BI").
 7. **Power BI**: You will use Microsoft Power BI to visualize the data analysis from Azure Stream Analytics and build a dashboard so you can see your metrics change in real time. Sample metrics that you can visualize include revenue, unique site visitors, most popular items, and average price of those items that are viewed versus added to a cart versus purchased. These sample metrics can help an e-commerce company evaluate its site popularity, develop its advertising and pricing strategies, and make decisions regarding what inventory to invest in.
 
-##<a name="prerequisites"></a>Prerequisites
+## <a name="prerequisites"></a>Prerequisites
 - 64-bit Windows 10 Operating System  
 - Microsoft .NET Framework 4.7.1 or higher  
 - Microsoft .NET Core 2.1 (or higher) SDK   
