@@ -3,31 +3,31 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "cosmosdbaccount_name": {
-            "value": "Fill in an account name here" //This needs to be a globally unique value, so try including your name and various numbers to get an acceptable name on the first try.
+            "value": "Fill in a unique Cosmos DB account name here" //This needs to be a globally unique value, so try including your name and various numbers to get an acceptable name on the first try.
         },
         "eventhubnamespace_name": {
-            "value": "Fill in an event hub namespace name here" //This needs to be a globally unique value, so try including your name and various numbers to get an acceptable name on the first try.
+            "value": "Fill in a unique event hub namespace name here" //This needs to be a globally unique value, so try including your name and various numbers to get an acceptable name on the first try.
         },
         "database_name": {
             "value": "database1"
         },
-        "streamjob_name": {
-            "value": "streamjob1"
-        },
         "storageaccount_name": {
-            "value": "Fill in a storage account name here" //This needs to be a globally unique value, so try including your name and various numbers to get an acceptable name on the first try.
+            "value": "Fill in a unique storage account name here" //This needs to be a globally unique value, so try including your name and various numbers to get an acceptable name on the first try.
         },
-        "eventhub_name": {
-            "value": "event-hub1"
-        },
+      "eventhub_name": {
+        "value": "event-hub1"
+      },
+      "streamjob_name": {
+        "value":  "streamjob1"
+      },
         "AuthorizationRules_RootManageSharedAccessKey_name": {
             "value": "RootManageSharedAccessKey"
         },
-        "consumergroups_$Default_name": {
-            "value": "$Default"
-        },
-        "streamingUnits": {
-            "value": 1
-        }
+      "consumergroups_$Default_name": {
+        "value": "$Default"
+      },
+      "streamingUnits": {
+        "value":  1
+      }
     }
 }
