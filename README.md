@@ -480,7 +480,7 @@ In order to build the e-commerce site, you'll use a Cosmos DB database to store 
 
 10. Press the green triangle start button at the top of the page to run the program.  
 
-	![startbutton](/Lab/labpics/startbutton.png)  
+	![startbutton](/Lab/labpics/startbutton.PNG)  
 
 
 11. Now you can play around on the e-commerce site. When you view an item, add an item to your cart, change the quantity of an item in your cart, or purchase an item, these events will be passed through the Cosmos DB change feed to Event Hub, ASA, and then Power BI. We recommend continuing to run DataGenerator to generate significant web traffic data and provide a realistic set of "Hot Products" on the e-commerce site. 
