@@ -76,28 +76,6 @@ namespace DataGenerator
         }
 
         /// <summary>
-        /// Randomly creates an Action using Randomizer from the Bogus library to generate a number between
-        /// 1 and 3 and matches it with an Action.
-        /// </summary>
-        /// <param name="rand"> An instance of Randomizer from the Bogus library. </param>
-        /// <returns> Returns a valid type of Action. </returns>
-        public static Action GetRandomAction(Randomizer rand)
-        {
-            int actionIndex = rand.Number(0, 2);
-            switch (actionIndex)
-            {
-                case 0:
-                    return Action.Viewed;
-                case 1:
-                    return Action.Added;
-                case 2:
-                    return Action.Purchased;
-                default:
-                    throw new Exception($"Oops! Unexpected index. Index: {actionIndex}");
-            }
-        }
-
-        /// <summary>
         /// Method that creates randomized data by generating a random number for the CartID, selecting a 
         /// random item from the list of items, and matching it with a random Action from GetRandomAction(Randomizer r).
         /// </summary>
@@ -137,13 +115,12 @@ namespace DataGenerator
            bool loop = true;
            while (loop)
             {
-                int itemIndex = random.Number(0,48);
                 Event e = new Event()
                 {
                     CartID = random.Number(1000, 9999),
-                    Action = GetRandomAction(random),
-                    Item = items[itemIndex],
-                    Price = prices[itemIndex]
+                    Action = random.Enum<Action>(),
+                    Item = random.ArrayElement(items),
+                    Price = random.ArrayElement(prices)
                 };
                 await InsertData(e);
 
