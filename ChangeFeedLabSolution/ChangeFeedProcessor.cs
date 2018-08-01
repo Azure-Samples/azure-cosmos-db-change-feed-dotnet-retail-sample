@@ -37,7 +37,7 @@ namespace ChangeFeedFunction
         [FunctionName("ChangeFeedProcessor")]
         public static void Run(
             [CosmosDBTrigger(databaseName: "database1",
-            collectionName: "YOUR MAIN COLLECTION NAME HERE",
+            collectionName: "YOUR COLLECTION NAME HERE",
             ConnectionStringSetting = "DBconnection",
             LeaseCollectionName = "YOUR LEASES COLLECTION NAME HERE")]IReadOnlyList<Document> documents, TraceWriter log)
         {
