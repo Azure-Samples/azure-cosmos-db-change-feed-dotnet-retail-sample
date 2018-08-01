@@ -96,7 +96,7 @@ An Azure Cosmos DB collection is a container for data records. You will now crea
 
 
 3. Select **New Collection** from the menu on the top of the page. Then perform the following actions:   
-	a. In the **Database id** field, select **Create new**, then enter **database1**. Leave the **Provision throughput** box unchecked.   
+	a. In the **Database id** field, select **Create new**, then enter **database1**. Leave the **Provision database throughput** box unchecked.   
 	b. In the **Collection id** field, enter **collection1**.  
     c. For **Storage capacity**, select **Unlimited**.  
     d. In the **Partition key** field, enter **/Item**.  
