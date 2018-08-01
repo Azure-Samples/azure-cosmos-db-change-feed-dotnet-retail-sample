@@ -439,10 +439,9 @@ If not, proceed to part **5b**.
 
 7. Within the `<appSettings>` block, add the **URI** and **PRIMARY KEY** that you saved earlier where it says **your URI here** and **your primary key here**.   
    
-Then add in your **database name** and **collection name** as indicated. (These names should be **database1** and **collection1** unless you chose to name yours differently.)   
+	Then add in your **database name** and **collection name** as indicated. (These names should be **database1** and **collection1** unless you chose to name yours differently.)   
    
-Fill in your **products collection name**, **categories collection name**, and **top items collection name** as indicated. (These names should be **products**, **categories**, and **topItems** unless you chose to name yours differently.)
-	![webapp14](/Lab/labpics/webapp14.PNG)
+	Fill in your **products collection name**, **categories collection name**, and **top items collection name** as indicated. (These names should be **products**, **categories**, and **topItems** unless you chose to name yours differently.)
 
 
 8. Navigate to and open the **Checkout folder** within **EcommerceWebApp.sln**. Then open the **Web.config** file within that folder.
