@@ -162,7 +162,7 @@ When a new document is created or modifications are made to a current document i
 3. Navigate to **local.settings.json** in Visual Studio. Then use the values you recorded earlier to fill in the blanks.
 4. Navigate to **ChangeFeedProcessor.cs**. In the parameters for the **Run** function, perform the following actions:   
    
-	a. Replace the text **YOUR MAIN COLLECTION NAME HERE** with the name of your main collection. If you followed earlier instructions, the name of your collection is **collection1**.   
+	a. Replace the text **YOUR COLLECTION NAME HERE** with the name of your collection. If you followed earlier instructions, the name of your collection is **collection1**.   
    
 	b. Replace the text **YOUR LEASES COLLECTION NAME HERE** with the name of your leases collection. If you followed earlier instructions, the name of your leases collection is **leases**.   
    
@@ -217,7 +217,7 @@ and purchasing the items in their carts. This data is arbitrary and for the purp
 	![data8](/Lab/labpics/data8.PNG)  
 
 
-13. If you navigate to [Azure Portal ](http://ms.portal.azure.com "Azure Portal "), then to the Cosmos DB account within your resource group, then to **Data Explorer**, you will see the randomized data imported in your main collection! Your main collection is **collection1** unless you chose to name yours differently.  
+13. If you navigate to [Azure Portal ](http://ms.portal.azure.com "Azure Portal "), then to the Cosmos DB account within your resource group, then to **Data Explorer**, you will see the randomized data imported in your collection! Your collection is **collection1** unless you chose to name yours differently.  
 	
 	![data11](/Lab/labpics/data12.png)
 	
@@ -448,7 +448,7 @@ If not, proceed to part **5b**.
 	![webapp1](/Lab/labpics/webapp1.PNG)  
 
 7. Within the `<appSettings>` block, add the **URI** and **PRIMARY KEY** that you saved earlier where it says **your URI here** and **your primary key here**.   
-Then add in your **database name** and **main collection name** as indicated. (These names should be **database1** and **collection1** unless you chose to name yours differently.)   
+Then add in your **database name** and **collection name** as indicated. (These names should be **database1** and **collection1** unless you chose to name yours differently.)   
 Fill in your **products collection name**, **categories collection name**, and **top items collection name** as indicated. (These names should be **products**, **categories**, and **topItems** unless you chose to name yours differently.)
 
 	![webapp14](/Lab/labpics/webapp14.PNG)  
@@ -459,7 +459,7 @@ Fill in your **products collection name**, **categories collection name**, and *
 	![webapp3](/Lab/labpics/webapp3.PNG)  
 
 9. Within the `<appSettings>` block, add the **URI** and **PRIMARY KEY** that you saved earlier where indicated.   
-Then add in your **databse name** and **main collection name** as indicated. (These names should be **database1** and **collection1** unless you chose to name yours differently.)
+Then add in your **databse name** and **collection name** as indicated. (These names should be **database1** and **collection1** unless you chose to name yours differently.)
  
 	![webapp4](/Lab/labpics/webapp4.PNG)  
 
