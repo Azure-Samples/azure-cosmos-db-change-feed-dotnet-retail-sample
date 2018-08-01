@@ -66,9 +66,6 @@
                 </LayoutTemplate>
             </asp:ListView>
         </div>
-        <hgroup>
-            <h2><%: "Welcome" %></h2>
-        </hgroup>
 
 
     </section>
