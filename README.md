@@ -47,7 +47,7 @@ This lab will proceed as follows:
 [Part 1: Creating a Database and Collection To Load Data Into](#part1)   
 [Part 2: Creating a Leases Collection for Change Feed Processing](#part2)   
 [Part 3: Getting Storage Account Key and Connection String](#part3)  
-[Part 4: Getting Event Hub Information](#part4)  
+[Part 4: Getting Event Hub Namespace Connection String](#part4)  
 [Part 5: Setting Up Azure Function with Cosmos DB Account](#part5)  
 [Part 6: Inserting Simulated Data into Cosmos DB in Real Time](#part6)  
 [Part 7: Setting Up Azure Stream Analytics and Data Analysis Visualization](#part7)  
@@ -139,7 +139,7 @@ Azure Storage Accounts allow users to store data. In this lab, you will use a st
 
 ---
  
-## <a name="part4"></a>Part 4: Getting Event Hub Information
+## <a name="part4"></a>Part 4: Getting Event Hub Namespace Connection String
 An Azure Event Hub is exactly what it sounds like. It receives event data, stores event data, processes event data, and forwards event data. In this lab, the Event Hub will receive a document every time a new event occurs (i.e. an item is viewed by a user, added to a user's cart, or purchased by a user) and then will forward that document to Azure Stream Analytics.
 
 1. Return to your resource group and open the **Event Hub Namespace** that you created and named in the prelab .
@@ -148,7 +148,7 @@ An Azure Event Hub is exactly what it sounds like. It receives event data, store
 	
 	![eventhub7](/Lab/labpics/eventhub7.png)  
 
-3. Select **RootManageSharedAccessKey**. Take the **Connection string-primary key** and copy it to a notepad or another document that you will have access to throughout the lab. You should label it **Event Hub Info**. You'll need to copy the string into your code later, so please take note and remember where you  are storing it.
+3. Select **RootManageSharedAccessKey**. Take the **Connection string-primary key** and copy it to a notepad or another document that you will have access to throughout the lab. You should label it **Event Hub Namespace connection string**. You'll need to copy the string into your code later, so please take note and remember where you  are storing it.
 	
 	![eventhub8](/Lab/labpics/eventhub8.png)  
 
