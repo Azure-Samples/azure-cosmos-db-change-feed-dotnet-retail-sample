@@ -124,7 +124,7 @@ The lease collection coordinates processing the change feed across multiple work
 ---
 
 ## <a name="part3"></a>Part 3: Getting Storage Account Key and Connection String 
-Azure Storage accounts allow users to store data. In this lab, you will use a storage account to store data for the Azure Function. The Azure Function is triggered when any modification is made to the collection you created in Part 1, and in order for the Azure Function to do its job, it needs a place to store its work.
+Azure Storage Accounts allow users to store data. In this lab, you will use a storage account to store data for the Azure Function. The Azure Function is triggered when any modification is made to the collection you created in Part 1, and in order for the Azure Function to do its job, it needs a place to store its work.
 
 1. Return to your resource group and open the **Storage Account** that you created and named in the prelab.
 
