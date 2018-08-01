@@ -1,4 +1,4 @@
-# Change Feed Lab
+# Azure Cosmos DB - Change Feed Lab
     
 ####  The Azure Cosmos DB change feed is a mechanism for getting a continuous and incremental feed of records from a Cosmos DB container as those records are being created or modified.   
    
