@@ -451,7 +451,7 @@ If not, proceed to part **5b**.
 Then add in your **database name** and **main collection name** as indicated. (These names should be **database1** and **collection1** unless you chose to name yours differently.)   
 Fill in your **products collection name**, **categories collection name**, and **top items collection name** as indicated. (These names should be **products**, **categories**, and **topItems** unless you chose to name yours differently.)
 
-	![webapp2](/Lab/labpics/webapp14.PNG)  
+	![webapp14](/Lab/labpics/webapp14.PNG)  
 
 
 8. Navigate to and open the **Checkout folder** within **EcommerceWebApp.sln** and open the **Web.config** file.
