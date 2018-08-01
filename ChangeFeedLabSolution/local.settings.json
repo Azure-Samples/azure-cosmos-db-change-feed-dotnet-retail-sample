@@ -7,7 +7,7 @@
     // Connection string from Azure Storage account
     "AzureWebJobsDashboard": "your Storage connection string here",
     // Primary connection string from Azure Cosmos DB account
-    "DBConnection": "your Cosmos DB primary connection string here",
+    "DBConnection": "your Cosmos DB connection string here",
     // Connection string-primary key from Azure Event Hub namespace
     "EventHubNamespaceConnection": "your Event Hub Namespace connection string here"
   }
