@@ -191,7 +191,7 @@ and purchasing the items in their carts. This data is arbitrary and for the purp
 	
 	![data5](/Lab/labpics/data5.png)  
 
-5. Take the **URI** and **PRIMARY KEY** and copy it to a notepad or another document that you will have access to throughout this part of the lab. You'll need it for step 11.
+5. Take the **URI** and **PRIMARY KEY** and copy it to a notepad or another document that you will have access to throughout the lab. You should label them **URI** and **PRIMARY KEY**. You'll need to copy them into your code later, so please take note and remember where you  are storing it.
 	
 	![codes](/Lab/labpics/data13.PNG)   
 
@@ -208,8 +208,7 @@ and purchasing the items in their carts. This data is arbitrary and for the purp
 10. Save the changes on all the files edited.   
 
 11. At the top of Visual Studio, make sure that the Startup Project box on the left of the green arrow says **DataGenerator**, and if it says something else, arrow down and click on **DataGenerator**.  
-	Then press the start button at the top of the page to run the program. It will look like this green triangle:
-	![startbutton](/Lab/labpics/startbutton.png)
+	Then press the start button at the top of the page to run the program. 
 	
 	![data7](/Lab/labpics/data7.png)  
 
@@ -218,7 +217,7 @@ and purchasing the items in their carts. This data is arbitrary and for the purp
 	![data8](/Lab/labpics/data8.PNG)  
 
 
-13. If you navigate to the Cosmos DB account within your resource group, you will see the randomized data imported in collection1!   
+13. If you navigate to [Azure Portal ](http://ms.portal.azure.com "Azure Portal "), then to the Cosmos DB account within your resource group, then to **Data Explorer**, you will see the randomized data imported in your main collection! Your main collection is **collection1** unless you chose to name yours differently.  
 	
 	![data11](/Lab/labpics/data12.png)
 	
@@ -275,7 +274,7 @@ Azure Stream Analytics is a fully managed cloud service for real-time processing
 
 9. Paste the following query into the query window. Then click **Save** in the upper left-hand corner.   
    
-	Note:   
+	**Note:**   
 		
 	The **AVERAGE PRICE** query calculates the average price of all items that are viewed by users, the average price of all items that are added to users' carts, and the average price of all items that are purchased by users. This metric can help e-commerce companies decide what prices to sell items at and what inventory to invest in. For example, if the average price of items viewed is much higher than the average price of items purchased, then a company might choose to add less expensive items to its inventory.   
 	
@@ -285,7 +284,7 @@ Azure Stream Analytics is a fully managed cloud service for real-time processing
 		FROM input  
 		GROUP BY Action, TumblingWindow(second,5) 
 
-10. Now return to **streamjob1** and click the **Start** button at the top of the page. Azure Stream Analytics can take a few minutes to start up, but eventually you will see it change from "Starting" to "Running". Then proceed to [Power BI](http://powerbi.microsoft.com "Power BI")
+10. Now return to **streamjob1** and click the **Start** button at the top of the page. Azure Stream Analytics can take a few minutes to start up, but eventually you will see it change from "Starting" to "Running".
 
 11. Once the stream is running, go back to **DataGenerator.exe** and if the program has ended, start it **again**. 
 ---
@@ -305,18 +304,20 @@ Power BI is a suite of business analytics tools to analyze data and share insigh
 	
 	![powerbi2](/Lab/labpics/powerbi2.png)
 
-5. In the **Visualization Type** field, choose **Clustered bar chart** from the drop-down menu.   
+5. Select **averagePrice** from **YOUR DATASETS**, then click **Next**.   
+   
+6. In the **Visualization Type** field, choose **Clustered bar chart** from the drop-down menu.   
 	Under **Axis**, add **action**.   
 	Skip **Legend** without adding anything.   
 	Then, under the next section called **Value**, add **avg**.   
 	Click **Next**, then title your chart, and click **Apply**. You should see a new chart on your dashboard!
 
-6. Now, if you want to visualize more metrics **(optional)**, you can go back to **streamjob1** and create three more outputs with the following fields.   
+7. Now, if you want to visualize more metrics **(optional)**, you can go back to **streamjob1** and create three more outputs with the following fields.   
 		a. Output alias: incomingRevenueOutput, Dataset name: incomingRevenue, Table name: Incoming Revenue   
 		b. Output alias: top5Output, Dataset name: top5Output, Table name: Top 5 Items   
 		c. Output alias: uniqueVisitorCountOutput, Dataset name: uniqueVisitorCount, Table name: Unique Visitor Count   
 		   
-	Then click **Edit query** and paste the following queries under the one you already wrote.   
+	Then click **Edit query** and paste the following queries **above** the one you already wrote.   
 	   
 	**Note:**   
 	   
@@ -380,16 +381,17 @@ You will now observe how you can use your new data analysis tool to connect with
 
 In order to build the e-commerce site, you'll use a Cosmos DB database to store the list of product categories (Women's, Men's, Unisex), the product catalog, and a list of the most popular items.   
    
-1. Navigate back to the **Azure Portal**, then to your **Cosmos DB account**, then to **Data Explorer**. Add three more collections under **database1** and  label them **products**, **categories**, selecting **Fixed** for Storage capacity.  
-   Create one more collection under **database1** titled **topitems** and select **Unlimited** for Storage capacity and **/Item** for Partition key. Now, database1 should have the following collections.  
+1. Navigate back to the **Azure Portal**, then to your **Cosmos DB account**, then to **Data Explorer**. Add three more collections under **database1** and label them **products**, **categories**, selecting **Fixed** for Storage capacity.  
+   Create one more collection under **database1** titled **topitems** and select **Unlimited** for Storage capacity and **/Item** for Partition key.   
+   Now, database1 should have the following collections.  
 
 	![webapp1](/Lab/labpics/webapp11.PNG) 
 
-2. Click on the **topitems** collection, and under **Scale and Settings** set the **Time to Live** to be **30 seconds** so that topitems updates every 30 seconds. Feel free to make this longer or shorter, but make sure the time to live matches both of the TumblingWindow values in the query in **Step 4**.  
+2. Click on the **topItems** collection, and under **Scale and Settings** set the **Time to Live** to be **30 seconds** so that topItems updates every 30 seconds.  
 
 	![webapp1](/Lab/labpics/webapp15.PNG)  
 
-3. In order to populate the **topitems** collection with the most frequently purchased items, navigate back to **streamjob1** and add a new **Output**. Select **Cosmos DB**.
+3. In order to populate the **topItems** collection with the most frequently purchased items, navigate back to **streamjob1** and add a new **Output**. Select **Cosmos DB**.
 
 	![webapp1](/Lab/labpics/webapp12.PNG) 
 
@@ -398,9 +400,21 @@ In order to build the e-commerce site, you'll use a Cosmos DB database to store 
 
 	![webapp1](/Lab/labpics/webapp13.PNG) 
 
-5. In **streamjob1**, select **Edit query** and paste the following query in your Azure Stream Analytics query editor above the queries you have already included.   
-	**Note**: This might look similar to a query you have already inserted, but make sure that it is outputting **INTO topitems** collection.   
-	Click 
+5. If you added the optional **TOP 5** query in the previous part of the lab, proceed to part **5a**.   
+If not, proceed to part **5b**.   
+   
+5a. In **streamjob1**, select **Edit query** and paste the following query in your Azure Stream Analytics query editor **below the TOP 5 query but above the rest of the queries**.
+	 
+
+		
+		SELECT arrayvalue.value.item AS Item, arrayvalue.value.price, arrayvalue.value.countEvents
+		INTO topItems
+		FROM arrayselect
+
+
+   
+5b. In **streamjob1**, select **Edit query** and paste the following query in your Azure Stream Analytics query editor **above any other queries**.
+	 
 
 		/*TOP 5*/
 		WITH Counter AS
@@ -429,24 +443,23 @@ In order to build the e-commerce site, you'll use a Cosmos DB database to store 
 
 
 
-6. Open "EcommerceWebApp.sln" and navigate to the **Web.config** file in the **Solution Explorer**.
+6. Open **EcommerceWebApp.sln** and navigate to the **Web.config** file in the **Solution Explorer**.
 
 	![webapp1](/Lab/labpics/webapp1.PNG)  
 
-7. Within the `<appSettings>` block, add the **URI** and unique **PRIMARY KEY** that you saved.   
-
-	Add in the **collection and database names**. (These names should be **collection1** and **database1** unless you chose to name yours differently.) Fill in your your products, categories, and Top Items collections. Those names should be **products**, **categories**, and **topitems** unless you chose different names. 
+7. Within the `<appSettings>` block, add the **URI** and **PRIMARY KEY** that you saved earlier where it says **your URI here** and **your primary key here**.   
+Then add in your **database name** and **main collection name** as indicated. (These names should be **database1** and **collection1** unless you chose to name yours differently.)   
+Fill in your **products collection name**, **categories collection name**, and **top items collection name** as indicated. (These names should be **products**, **categories**, and **topItems** unless you chose to name yours differently.)
 
 	![webapp2](/Lab/labpics/webapp14.PNG)  
 
 
-8. Navigate to and open the **Checkout folder** and open the **Web.config** file.
+8. Navigate to and open the **Checkout folder** within **EcommerceWebApp.sln** and open the **Web.config** file.
 
 	![webapp3](/Lab/labpics/webapp3.PNG)  
 
-9. Within the `<appSettings>` block, add the **URI** and unique **PRIMARY KEY** that you just saved.   
-
-	Add in the **collection and database names**. (These names should be **collection1** and **database1** unless you chose to name yours differently.)
+9. Within the `<appSettings>` block, add the **URI** and **PRIMARY KEY** that you saved earlier where indicated.   
+Then add in your **databse name** and **main collection name** as indicated. (These names should be **database1** and **collection1** unless you chose to name yours differently.)
  
 	![webapp4](/Lab/labpics/webapp4.PNG)  
 
