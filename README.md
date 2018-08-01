@@ -133,7 +133,7 @@ Azure Storage Accounts allow users to store data. In this lab, you will use a st
 
 	![storage3](/Lab/labpics/storage3.png)  
 
-3. Take the values under **key 1** and copy them to a notepad or another document that you will have access to throughout the lab. You should label the **Key** as **Storage Key** and the **Connection string** as **Storage Connection String**. You'll need to copy these strings into your code later, so please take note and remember where you  are storing them temporarily.
+3. Take the values under **key 1** and copy them to a notepad or another document that you will have access to throughout the lab. You should label the **Key** as **Storage Key** and the **Connection string** as **Storage Connection String**. You'll need to copy these strings into your code later, so please take note and remember where you  are storing them.
 
 	![storage4](/Lab/labpics/storage4.png)
 
@@ -186,12 +186,12 @@ and purchasing the items in their carts. This data is arbitrary and for the purp
 	![data1](/Lab/labpics/data1.png)  
 
 2. Navigate to [Azure Portal ](http://ms.portal.azure.com "Azure Portal ").
-3.  Navigate to the **resource group** that you created during the prelab, and then navigate to the **Azure Cosmos DB account** that you created during the prelab.
+3.  Navigate to the resource group that you created during the prelab, and then navigate to the **Azure Cosmos DB account** that you created during the prelab.
 4. Select **Keys**.   
 	
 	![data5](/Lab/labpics/data5.png)  
 
-5. Take the **URI** and **PRIMARY KEY** and copy it to a notepad or another document that you will have access to throughout the lab. You should label them **URI** and **PRIMARY KEY**. You'll need to copy them into your code later, so please take note and remember where you  are storing it.
+5. Take the **URI** and **PRIMARY KEY** and copy it to a notepad or another document that you will have access to throughout the lab. You should label them **URI** and **PRIMARY KEY**. You'll need to copy them into your code later, so please take note and remember where you  are storing them.
 	
 	![codes](/Lab/labpics/data13.PNG)   
 
@@ -247,7 +247,7 @@ Azure Stream Analytics is a fully managed cloud service for real-time processing
     	i. Leave **Event compression type** field set to **None**.  
 		j. Click the **Save** button.      
 
-![PowerBIInput](/Lab/labpics/PowerBIInput.png)
+![PowerBIInput](/Lab/labpics/MsftPowerBIInput.png)
 
 5. Navigate back to the stream analytics job page, and select **Outputs** as demonstrated below.
 	
@@ -261,28 +261,25 @@ Azure Stream Analytics is a fully managed cloud service for real-time processing
     	a. In the **Output alias** field, enter **averagePriceOutput**.  
     	b. Leave the **Group workspace** field set to **Authorize connection to load workspaces**.   
 		c. In the **Dataset name** field, enter **averagePrice**.  
-    	d. In the **Table name** field, enter **Average Price**.  
+    	d. In the **Table name** field, enter **averagePrice**.  
     	e. Click the **Authorize** button, then follow the instructions to authorize the connection to Power BI.  
 		f. Click the **Save** button.      
-
-![PowerBIOutput](/Lab/labpics/PowerBIOutput.png)
-
 
 8. Then go back to **streamjob1** and click **Edit query**.
 
 	![asa8](/Lab/labpics/asa8.png)
 
 9. Paste the following query into the query window. Then click **Save** in the upper left-hand corner.   
-   
-	**Note:**   
-		
-	The **AVERAGE PRICE** query calculates the average price of all items that are viewed by users, the average price of all items that are added to users' carts, and the average price of all items that are purchased by users. This metric can help e-commerce companies decide what prices to sell items at and what inventory to invest in. For example, if the average price of items viewed is much higher than the average price of items purchased, then a company might choose to add less expensive items to its inventory.   
+
 	
 		/*AVERAGE PRICE*/      
 		SELECT System.TimeStamp AS Time, Action, AVG(Price)  
 		INTO averagePriceOutput  
 		FROM input  
 		GROUP BY Action, TumblingWindow(second,5) 
+
+	**Note:**   
+	The **AVERAGE PRICE** query calculates the average price of all items that are viewed by users, the average price of all items 	that are added to users' carts, and the average price of all items that are purchased by users. This metric can help e-commerce companies decide what prices to sell items at and what inventory to invest in. For example, if the average price of items viewed is much higher than the average price of items purchased, then a company might choose to add less expensive items to its inventory.  
 
 10. Now return to **streamjob1** and click the **Start** button at the top of the page. Azure Stream Analytics can take a few minutes to start up, but eventually you will see it change from "Starting" to "Running".
 
@@ -313,19 +310,11 @@ Power BI is a suite of business analytics tools to analyze data and share insigh
 	Click **Next**, then title your chart, and click **Apply**. You should see a new chart on your dashboard!
 
 7. Now, if you want to visualize more metrics **(optional)**, you can go back to **streamjob1** and create three more outputs with the following fields.   
-		a. Output alias: incomingRevenueOutput, Dataset name: incomingRevenue, Table name: Incoming Revenue   
-		b. Output alias: top5Output, Dataset name: top5Output, Table name: Top 5 Items   
-		c. Output alias: uniqueVisitorCountOutput, Dataset name: uniqueVisitorCount, Table name: Unique Visitor Count   
+		a. Output alias: incomingRevenueOutput, Dataset name: incomingRevenue, Table name: incomingRevenue  
+		b. Output alias: top5Output, Dataset name: top5, Table name: top5   
+		c. Output alias: uniqueVisitorCountOutput, Dataset name: uniqueVisitorCount, Table name: uniqueVisitorCount  
 		   
 	Then click **Edit query** and paste the following queries **above** the one you already wrote.   
-	   
-	**Note:**   
-	   
-	The **TOP 5** query calculates the top 5 items, ranked by the number of times that they have been purchased. This metric can help e-commerce companies evaluate which items are most popular and can influence the company's advertising, pricing, and inventory decisions.   
-				
-	The **REVENUE** query calculates revenue by summing up the prices of all items purchased each minute. This metric can help e-commerce companies evaluate its financial performance and also understand what times of day are most revenue-driving. This can impact overall company strategy, marketing in particular.   
-				
-	The **UNIQUE VISITORS** query calculates how many unique visitors are on the site every 5 seconds by detecting unique cart ID's. This metric can help e-commerce companies evaluate their site activity and strategize how to acquire more customers.
 
 		/*TOP 5*/
 		WITH Counter AS
@@ -365,9 +354,14 @@ Power BI is a suite of business analytics tools to analyze data and share insigh
 		FROM input
 		GROUP BY TumblingWindow(second, 5)
 
-
+	**Note:**   
+	The **TOP 5** query calculates the top 5 items, ranked by the number of times that they have been purchased. This metric can help e-commerce companies evaluate which items are most popular and can influence the company's advertising, pricing, and inventory decisions.   
+				
+	The **REVENUE** query calculates revenue by summing up the prices of all items purchased each minute. This metric can help e-commerce companies evaluate its financial performance and also understand what times of day are most revenue-driving. This can impact overall company strategy, marketing in particular.   
+				
+	The **UNIQUE VISITORS** query calculates how many unique visitors are on the site every 5 seconds by detecting unique cart ID's. This metric can help e-commerce companies evaluate their site activity and strategize how to acquire more customers.
 					
-	You can now add tiles for these datasets as well.   
+8. You can now add tiles for these datasets as well.   
 	For Top 5, it would make sense to do a clustered column chart with the items as the axis and the count as the value.   
 	For Revenue, it would make sense to do a line chart with time as the axis and the sum of the prices as the value. The time window to display should be the largest possible in order to deliver as much information as possible.   
 	For Unique Visitors, it would make sense to do a card visualization with the number of unique visitors as the value.   
@@ -381,12 +375,9 @@ You will now observe how you can use your new data analysis tool to connect with
 
 In order to build the e-commerce site, you'll use a Cosmos DB database to store the list of product categories (Women's, Men's, Unisex), the product catalog, and a list of the most popular items.   
    
-1. Navigate back to the **Azure Portal**, then to your **Cosmos DB account**, then to **Data Explorer**. Add three more collections under **database1** and label them **products**, **categories**, selecting **Fixed** for Storage capacity.  
-   Create one more collection under **database1** titled **topitems** and select **Unlimited** for Storage capacity and **/Item** for Partition key.   
-   Now, database1 should have the following collections.  
-
-	![webapp1](/Lab/labpics/webapp11.PNG) 
-
+1. Navigate back to the **Azure Portal**, then to your **Cosmos DB account**, then to **Data Explorer**.   
+Add two collections under **database1** named **products** and **categories** with **Fixed** storage capacity.   
+Add another collection under **database1** named **topItems** with **Unlimited** storage capacity. Write **/Item** as the partition key.   
 2. Click on the **topItems** collection, and under **Scale and Settings** set the **Time to Live** to be **30 seconds** so that topItems updates every 30 seconds.  
 
 	![webapp1](/Lab/labpics/webapp15.PNG)  
@@ -403,7 +394,7 @@ In order to build the e-commerce site, you'll use a Cosmos DB database to store 
 5. If you added the optional **TOP 5** query in the previous part of the lab, proceed to part **5a**.   
 If not, proceed to part **5b**.   
    
-5a. In **streamjob1**, select **Edit query** and paste the following query in your Azure Stream Analytics query editor **below the TOP 5 query but above the rest of the queries**.
+	5a. In **streamjob1**, select **Edit query** and paste the following query in your Azure Stream Analytics query editor **below the TOP 5 query but above the rest of the queries**.
 	 
 
 		
@@ -413,14 +404,13 @@ If not, proceed to part **5b**.
 
 
    
-5b. In **streamjob1**, select **Edit query** and paste the following query in your Azure Stream Analytics query editor **above any other queries**.
+	5b. In **streamjob1**, select **Edit query** and paste the following query in your Azure Stream Analytics query editor **above all other queries**.
 	 
 
 		/*TOP 5*/
 		WITH Counter AS
 		(
-		SELECT Item, Price, Action, COUNT(*) AS countEvents
-		FROM input
+		SELECT Item, Price, Action, COUNT(*) AS countEvents		FROM input
 		WHERE Action = 'Purchased'
 		GROUP BY Item, Price, Action, TumblingWindow(second,30)
 		), 
@@ -448,13 +438,14 @@ If not, proceed to part **5b**.
 	![webapp1](/Lab/labpics/webapp1.PNG)  
 
 7. Within the `<appSettings>` block, add the **URI** and **PRIMARY KEY** that you saved earlier where it says **your URI here** and **your primary key here**.   
+   
 Then add in your **database name** and **collection name** as indicated. (These names should be **database1** and **collection1** unless you chose to name yours differently.)   
+   
 Fill in your **products collection name**, **categories collection name**, and **top items collection name** as indicated. (These names should be **products**, **categories**, and **topItems** unless you chose to name yours differently.)
+	![webapp14](/Lab/labpics/webapp14.PNG)
 
-	![webapp14](/Lab/labpics/webapp14.PNG)  
 
-
-8. Navigate to and open the **Checkout folder** within **EcommerceWebApp.sln** and open the **Web.config** file.
+8. Navigate to and open the **Checkout folder** within **EcommerceWebApp.sln**. Then open the **Web.config** file within that folder.
 
 	![webapp3](/Lab/labpics/webapp3.PNG)  
 
