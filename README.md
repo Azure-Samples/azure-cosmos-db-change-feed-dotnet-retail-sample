@@ -69,11 +69,11 @@ You will be using [Azure Resource Manager](https://docs.microsoft.com/en-us/azur
 
 2. Clone this repository to your computer.  
 
-3. Open the repository that you just cloned, then navigate to **Azure Resource Manager**, and open the file called **parameters.json** in **Visual Studio**.  
+3. Open the repository that you just cloned, then navigate to the **Azure Resource Manager** folder, and open the file called **parameters.json** in **Visual Studio**.  
 
 4. Fill in the blanks as indicated in **parameters.json**. You'll need to use the names that you give to each of your resources later. We recommend keeping this window available for your reference later in the lab.
 
-5. Open **Windows PowerShell** again, then navigate to **Azure Resource Manager** and run the following command:  
+5. Open **Windows PowerShell** again, then navigate to the **Azure Resource Manager** folder and run the following command:  
     ` .\deploy.ps1 `  
 
 6. Once prompted, enter the **Subcription ID** for your Azure subscription (available on [Azure Portal ](http://ms.portal.azure.com "Azure Portal ")), **"changefeedlab"** for your resource group name, and **"run1"** for your deployment name.   
@@ -201,7 +201,7 @@ and purchasing the items in their carts. This data is arbitrary and for the purp
 
 8. Within the `<appSettings>` block, add the **URI** and unique **PRIMARY KEY** that you just saved. 
 
-9. Add in the **collection and database names**. (These names should be **collection1** and **database1** unless you chose to name yours differently.)
+9. Add in the **collection** and **database** names. (These names should be **collection1** and **database1** unless you chose to name yours differently.)
 	
 	![data6](/Lab/labpics/data6.png)  
 
