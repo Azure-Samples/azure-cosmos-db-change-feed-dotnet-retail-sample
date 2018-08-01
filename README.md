@@ -408,7 +408,7 @@ If not, proceed to part **5b**.
 	 
 
 		/*TOP 5*/
-		WITH Counter AS
+a		WITH Counter AS
 		(
 		SELECT Item, Price, Action, COUNT(*) AS countEvents		FROM input
 		WHERE Action = 'Purchased'
