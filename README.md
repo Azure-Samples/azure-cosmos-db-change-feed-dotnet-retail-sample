@@ -408,9 +408,10 @@ If not, proceed to part **5b**.
 	 
 
 		/*TOP 5*/
-a		WITH Counter AS
+		WITH Counter AS
 		(
-		SELECT Item, Price, Action, COUNT(*) AS countEvents		FROM input
+		SELECT Item, Price, Action, COUNT(*) AS countEvents
+		FROM input
 		WHERE Action = 'Purchased'
 		GROUP BY Item, Price, Action, TumblingWindow(second,30)
 		), 
