@@ -115,12 +115,13 @@ namespace DataGenerator
            bool loop = true;
            while (loop)
             {
+                int itemIndex = random.Number(0,48);
                 Event e = new Event()
                 {
                     CartID = random.Number(1000, 9999),
                     Action = random.Enum<Action>(),
-                    Item = random.ArrayElement(items),
-                    Price = random.ArrayElement(prices)
+                    Item = items[itemIndex],
+                    Price = prices[itemIndex]
                 };
                 await InsertData(e);
 
