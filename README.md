@@ -466,4 +466,6 @@ Then add in your **databse name** and **collection name** as indicated. (These n
 
 #### This is just one example of how the change feed can be used by Cosmos DB customers.   
 
+Feedback? Let us know [here!](https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR8K_JtWBhupCpepG-HuzNVlUOUdNU0E5VUNRMlpNU1pNTzRCVE1VNE0wOS4u)
+
 #### For more information about what's happening at Azure Cosmos DB, check out the [Cosmos DB Blog](https://azure.microsoft.com/en-us/blog/tag/cosmos-db/ "Cosmos DB Blog")!
