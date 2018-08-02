@@ -462,7 +462,7 @@ Then add in your **databse name** and **collection name** as indicated. (These n
 
 11. Now you can play around on the e-commerce site. When you view an item, add an item to your cart, change the quantity of an item in your cart, or purchase an item, these events will be passed through the Cosmos DB change feed to Event Hub, ASA, and then Power BI. We recommend continuing to run DataGenerator to generate significant web traffic data and provide a realistic set of "Hot Products" on the e-commerce site. 
    
-
+To delete the resources that you created during this lab, navigate to the resource group on [Azure Portal](http://ms.portal.azure.com "Azure Portal "), then select **Delete resource group** from the menu at the top of the page and follow the instructions provided.
 
 #### This is just one example of how the change feed can be used by Cosmos DB customers.   
 
