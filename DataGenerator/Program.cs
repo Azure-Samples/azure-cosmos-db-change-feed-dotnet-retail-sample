@@ -96,10 +96,9 @@ namespace DataGenerator
                 "Women's High Heel Shoe", "Women's Cardigan Sweater", "Men's Dress Shoes", "Unisex Puffy Jacket", "Women's Red Dress", "Unisex Scarf",
                 "Women's White Dress", "Unisex Sandals", "Women's Bag"
             };
-
+            
             double[] prices = new double[]
             {
-
                3.75, 8.00, 12.00, 10.00,
                 17.00, 20.00, 14.00, 15.50,
                 9.00, 25.00, 27.00, 21.00, 22.50,
@@ -115,7 +114,7 @@ namespace DataGenerator
            bool loop = true;
            while (loop)
             {
-                int itemIndex = random.Number(0,items.length);
+                int itemIndex = random.Number(0, items.Length);
                 Event e = new Event()
                 {
                     CartID = random.Number(1000, 9999),
@@ -151,16 +150,19 @@ namespace DataGenerator
                         Price = e.Price
                     };
                     await InsertData(previousEvent);
-                }
-                //int time = random.Number(0, 500);
-                //System.Threading.Thread.Sleep(time);
-                
+                }               
             }
+
             string key = Console.ReadKey().Key.ToString();
             if (key == " ")
+            {
                 loop = false;
+            }
             else
+            {
                 loop = true;
+            }
+
             CreateData();
         }
 
@@ -168,6 +170,7 @@ namespace DataGenerator
         /// Inserts each event e to the database by using Azure DocumentClient library.
         /// </summary>
         /// <param name="e"> An instance of the Event class representing a user click. </param>/
+        /// <returns>returns a Task</returns>        
         private static async Task InsertData(Event e)
         {
             await Client.CreateDocumentAsync(CollectionUri, e);
