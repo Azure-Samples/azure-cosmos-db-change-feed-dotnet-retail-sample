@@ -226,7 +226,7 @@ and purchasing the items in their carts. This data is arbitrary and for the purp
 ## <a name="part7"></a>Part 7: Setting Up Azure Stream Analytics and Data Analysis Visualization
 Azure Stream Analytics is a fully managed cloud service for real-time processing of streaming data. In this lab, you will use ASA to process new events from the Event Hub (i.e. when an item is viewed, added to a cart, or purchased), incorporate those events into real-time data analysis, and send them into Power BI for visualization.
 
-1. On **Azure Portal**, navigate to your resource group, then to **streamjob1** (the stream analytics job that you created in the prelab).   
+1. On [**Azure Portal**](http://portal.azure.com "Azure Portal "), navigate to your resource group, then to **streamjob1** (the stream analytics job that you created in the prelab).   
 
 2. Select **Inputs** as demonstrated below.
 	
@@ -247,7 +247,7 @@ Azure Stream Analytics is a fully managed cloud service for real-time processing
     	i. Leave **Event compression type** field set to **None**.  
 		j. Click the **Save** button.
 	
-	![PowerBIInput](/Lab/labpics/PowerBIInput.png)
+	![PowerBIInput](/Lab/labpics/PowerBIInput.PNG)
 
 5. Navigate back to the stream analytics job page, and select **Outputs** as demonstrated below.
 	
