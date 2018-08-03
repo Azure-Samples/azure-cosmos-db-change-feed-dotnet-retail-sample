@@ -168,7 +168,7 @@ When a new document is created or modifications are made to a current document i
    
 	c. At the top of Visual Studio, make sure that the Startup Project box on the left of the green arrow says **ChangeFeedFunction**, and if it says something else, arrow down and click on **ChangeFeedFunction**.   
    
-	d. Press the start button at the top of the page to run the program. It will look like this green triangle:
+	d. Press the **Start** button at the top of the page to run the program. It will look like this green triangle:
 	![startbutton](/Lab/labpics/startbutton.PNG)   
    
 	e. You will know the function is running when the console app says "Job host started" at the bottom.
@@ -208,7 +208,7 @@ and purchasing the items in their carts. This data is arbitrary and for the purp
 10. Save the changes on all the files edited.   
 
 11. At the top of Visual Studio, make sure that the Startup Project box on the left of the green arrow says **DataGenerator**, and if it says something else, arrow down and click on **DataGenerator**.  
-	Then press the start button at the top of the page to run the program. 
+	Then press the **Start** button at the top of the page to run the program. 
 	
 	![data7](/Lab/labpics/data7.png)  
 
