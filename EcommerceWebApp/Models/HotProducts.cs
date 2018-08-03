@@ -1,16 +1,15 @@
-﻿using System.Collections.Generic;
-using System;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using System.Web;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
-using EcommerceWebApp.Models;
-
-namespace EcommerceWebApp.Models
-{
+﻿namespace EcommerceWebApp.Models
+{ 
+    using System.Collections.Generic;
+    using System;
+    using System.Security.Claims;
+    using System.Threading.Tasks;
+    using System.Web;
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
+    using Microsoft.AspNet.Identity.Owin;
+    using Microsoft.Owin.Security;
+    using EcommerceWebApp.Models;
     using System.ComponentModel.DataAnnotations;
 
     public class HotProduct
@@ -28,8 +27,8 @@ namespace EcommerceWebApp.Models
         {
             HotProduct hotItem = obj as HotProduct;
             return (this.item == hotItem.item && this.price == hotItem.price);
-
         }
+
         public override int GetHashCode()
         {
             return this.item.GetHashCode();

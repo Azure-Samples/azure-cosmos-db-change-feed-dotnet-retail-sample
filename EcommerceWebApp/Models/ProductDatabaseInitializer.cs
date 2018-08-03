@@ -1,16 +1,17 @@
 ﻿
 namespace EcommerceWebApp.Models
 {
-    using System.Collections.Generic;
-    using System.Data.Entity;
     using System;
-    using System.Configuration;
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.Configuration;
+    using System.Data.Entity;
     using System.Linq;
     using System.Net;
     using System.Threading.Tasks;
     using Microsoft.Azure.Documents;
     using Microsoft.Azure.Documents.Client;
+
     using Microsoft.Azure.Documents.Linq;
 
     /// <summary>
@@ -59,10 +60,12 @@ namespace EcommerceWebApp.Models
             {
                 Items.Add((Product)product);
             }
+
             foreach (dynamic category in Categories)
             {
                 Catalog.Add((Category)category);
             }
+
             foreach (dynamic popularItem in PopularItems)
             {
                 if (!HotProducts.Contains((HotProduct)popularItem))
@@ -92,8 +95,8 @@ namespace EcommerceWebApp.Models
                 FeedResponse<dynamic> feedResponseOfProducts = client.ReadDocumentFeedAsync(collectionSelfLink, new FeedOptions() { RequestContinuation = continuationToken }).Result;
                 documents.AddRange(feedResponseOfProducts);
                 continuationToken = feedResponseOfProducts.ResponseContinuation;
-            } while (continuationToken != null);
-
+            }
+            while (continuationToken != null);
             return documents;
         }
 
@@ -447,12 +450,10 @@ namespace EcommerceWebApp.Models
                         UnitPrice = 37.50,
                         CategoryID = 1
                     }
-
                 };
             foreach (Product item in products)
             {
                 ResourceResponse<Document> result = Client.CreateDocumentAsync(collectionSelfLink, item).Result;
-
             }
         }
 
@@ -484,9 +485,7 @@ namespace EcommerceWebApp.Models
             foreach (Category catg in categories)
             {
                 ResourceResponse<Document> result = client.CreateDocumentAsync(collectionSelfLink2, catg).Result;
-
             }
         }
     }
-
 }
