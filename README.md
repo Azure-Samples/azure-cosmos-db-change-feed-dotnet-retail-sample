@@ -52,7 +52,7 @@ This lab will proceed as follows:
 [Part 6: Inserting Simulated Data into Cosmos DB in Real Time](#part6)  
 [Part 7: Setting Up Azure Stream Analytics and Data Analysis Visualization](#part7)  
 [Part 8: Connecting to PowerBI](#part8)   
-[Part 9: Visualizing with a Real E-Commerce Site (OPTIONAL)](#part9)
+[Optional: Visualizing with a Real E-Commerce Site](#optional)
 
 
 ## <a name="prelab"></a>Pre-Lab: Creating Azure Cosmos DB Resources
@@ -186,7 +186,7 @@ and purchasing the items in their carts. This data is arbitrary and for the purp
 	![data1](/Lab/labpics/data1.png)  
 
 2. Navigate to [Azure Portal ](http://portal.azure.com "Azure Portal ").
-3.  Navigate to the resource group that you created during the prelab, and then navigate to the **Azure Cosmos DB account** that you created during the prelab.
+3.  Navigate to the resource group that you created during the prelab (named changefeedlab unless you chose otherwise) and then navigate to the **Azure Cosmos DB account** that you created during the prelab.
 4. Select **Keys**.   
 	
 	![data5](/Lab/labpics/data5.png)  
@@ -369,12 +369,12 @@ Power BI is a suite of business analytics tools to analyze data and share insigh
 	![powerbisnap](/Lab/labpics/powerbisnap.png)
 --- 
 
-## <a name="part9"></a>Part 9: Visualizing with a Real E-commerce Site (OPTIONAL)
+## <a name="optional"></a>Optional: Visualizing with a Real E-commerce Site 
 You will now observe how you can use your new data analysis tool to connect with a real e-commerce site.   
 
 In order to build the e-commerce site, you'll use a Cosmos DB database to store the list of product categories (Women's, Men's, Unisex), the product catalog, and a list of the most popular items.   
    
-1. Navigate back to the **Azure Portal**, then to your **Cosmos DB account**, then to **Data Explorer**.   
+1. Navigate back to the [**Azure Portal**](http://portal.azure.com "Azure Portal "), then to your **Cosmos DB account**, then to **Data Explorer**.   
 Add two collections under **database1** named **products** and **categories** with **Fixed** storage capacity.   
 Add another collection under **database1** named **topItems** with **Unlimited** storage capacity. Write **/Item** as the partition key.   
 2. Click on the **topItems** collection, and under **Scale and Settings** set the **Time to Live** to be **30 seconds** so that topItems updates every 30 seconds.  
@@ -454,7 +454,7 @@ Then add in your **databse name** and **collection name** as indicated. (These n
 	![webapp4](/Lab/labpics/webapp4.PNG)  
 
 
-10. Press the green triangle start button at the top of the page to run the program.  
+10. Press **Start** at the top of the page to run the program.  
 
 	![startbutton](/Lab/labpics/startbutton.PNG)  
 
