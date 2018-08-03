@@ -59,7 +59,7 @@ This lab will proceed as follows:
 
 You will be using [Azure Resource Manager](https://docs.microsoft.com/en-us/azure/azure-resource-manager/) to create the Azure resources necessary for the lab. 
 
-1. Make sure that you have an **Unrestricted Execution Policy** on your **Windows PowerShell**. To do so, open **Windows PowerShell** and run the following commands:  
+1. Make sure that you have an **Unrestricted Execution Policy** on your **Windows PowerShell**. To do so, open **Windows PowerShell as an Administrator** and run the following commands:  
 
     `Get-ExecutionPolicy  `  
     
