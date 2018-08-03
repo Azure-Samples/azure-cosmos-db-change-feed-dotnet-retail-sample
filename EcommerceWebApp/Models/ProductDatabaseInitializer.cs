@@ -3,8 +3,6 @@ namespace EcommerceWebApp.Models
 {
     using System.Collections.Generic;
     using System.Data.Entity;
-
-
     using System;
     using System.Configuration;
     using System.Collections.ObjectModel;
@@ -14,7 +12,6 @@ namespace EcommerceWebApp.Models
     using Microsoft.Azure.Documents;
     using Microsoft.Azure.Documents.Client;
     using Microsoft.Azure.Documents.Linq;
-
 
     /// <summary>
     /// Initializes the database of shopping items
@@ -27,6 +24,7 @@ namespace EcommerceWebApp.Models
         private static readonly string productsCollection = ConfigurationManager.AppSettings["productsCollection"];
         private static readonly string categoriesCollection = ConfigurationManager.AppSettings["categoriesCollection"];
         private static readonly string hotItemsCollection = ConfigurationManager.AppSettings["hotItemsCollection"];
+
         /// <summary>
         /// Extracts and adds the categories and Products
         /// </summary>
@@ -51,10 +49,12 @@ namespace EcommerceWebApp.Models
                 seedCategoriesInDB(Client, collectionSelfLink2);
                 Categories = ReadAllDocumentsInCollectionAsync(Client, collectionSelfLink2);
             }
+
             List<dynamic> PopularItems = ReadAllDocumentsInCollectionAsync(Client, collectionSelfLink3);
             List<Product> Items = new List<Product>();
             List<Category> Catalog = new List<Category>();
             List<HotProduct> HotProducts = new List<HotProduct>();
+
             foreach (dynamic product in Products)
             {
                 Items.Add((Product)product);
@@ -75,14 +75,14 @@ namespace EcommerceWebApp.Models
             Catalog.ForEach(category => context.Categories.Add(category));
             HotProducts.ForEach(hotitem => context.HotItems.Add(hotitem));
         }
+
         /// <summary>
         /// Reads all the documents in a Cosmos DB collection
         /// </summary>
         /// <param name="client"> The client to that Cosmos DB account</param>
         /// <param name="collectionSelfLink"> A Uri to the the collection we are looking at</param>
         /// <returns></returns>
-
-        public List<dynamic> ReadAllDocumentsInCollectionAsync(DocumentClient client, Uri collectionSelfLink)
+        private static List<dynamic> ReadAllDocumentsInCollectionAsync(DocumentClient client, Uri collectionSelfLink)
         {
             List<dynamic> documents = new List<dynamic>();
 
@@ -100,8 +100,7 @@ namespace EcommerceWebApp.Models
         /// <summary>
         /// A method for sending the product catalog to a Cosmos DB database
         /// </summary>
-
-        public void SeedProductsInCosmosDB(DocumentClient Client, Uri collectionSelfLink)
+        private static void SeedProductsInCosmosDB(DocumentClient Client, Uri collectionSelfLink)
         {
             List<Product> products = new List<Product>
                 {
@@ -462,7 +461,7 @@ namespace EcommerceWebApp.Models
         /// </summary>
         /// <param name="client">A Cosmos DB account Client </param>
         /// <param name="collectionSelfLink2"> A link to a Cosmos DB collection</param>
-        public void seedCategoriesInDB(DocumentClient client, Uri collectionSelfLink2)
+        private static void seedCategoriesInDB(DocumentClient client, Uri collectionSelfLink2)
         {
             List<Category> categories = new List<Category>
                 {

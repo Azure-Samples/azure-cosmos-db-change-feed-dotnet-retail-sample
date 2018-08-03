@@ -14,12 +14,14 @@ using Microsoft.Azure.Documents.Client;
 using Microsoft.Azure.Documents;
 using System.Configuration;
 using System.Threading.Tasks;
+
 namespace EcommerceWebApp
 {
     public partial class _Default : Page
     {
         private static readonly Uri _endpointUri = new Uri(ConfigurationManager.AppSettings["endpoint"]);
         private static readonly string _primaryKey = ConfigurationManager.AppSettings["authKey"];
+
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -39,14 +41,20 @@ namespace EcommerceWebApp
             }
         }
 
+        /// <summary>
+        /// Returns top best selling items on the website
+        /// </summary>
+        /// <returns>top best selling items in the database returned by a sql query</returns>
         public IQueryable GetHotItems()
         {
             ProductContext _db = new EcommerceWebApp.Models.ProductContext();
-            if (_db.HotItems.Count<HotProduct>() > 0)
+            int hotItemsCount = _db.HotItems.Count<HotProduct>();
+            if (hotItemsCount > 0)
             {
                 Clear(_db.HotItems);
                 _db.SaveChanges();
             }
+
             UpdateHotItems(_db.HotItems);
             _db.SaveChanges();
             IQueryable query = _db.HotItems;
@@ -56,12 +64,12 @@ namespace EcommerceWebApp
         /// <summary>
         /// Updates the Local DbSet to be in sync with the Cosmos DB collection
         /// </summary>
-        /// <param name="db"> a DbSet instance of the DbContext that constains Best Selling Items</param>
-
-        public void UpdateHotItems(DbSet<HotProduct> db)
+        /// <param name="db"> a DbSet instance of the DbContext that contains Best Selling Items</param>
+        private void UpdateHotItems(DbSet<HotProduct> db)
         {
             DocumentClient Client = new DocumentClient(_endpointUri, _primaryKey);
             Uri collectionSelfLink3 = UriFactory.CreateDocumentCollectionUri(ConfigurationManager.AppSettings["database"], ConfigurationManager.AppSettings["hotItemsCollection"]);
+
             List<dynamic> topItems = ReadAllDocumentsInCollectionAsync(Client, collectionSelfLink3);
             List<HotProduct> hotItems = new List<HotProduct>();
             foreach (dynamic popular in topItems)
@@ -72,26 +80,27 @@ namespace EcommerceWebApp
                     hotItems.Add(hot);
                 }
             }
-            hotItems.ForEach(z => db.Add(z));
+            hotItems.ForEach(i=> db.Add(i));
         }
 
         /// <summary>
-        /// Removes all entities in a DbSet
+        /// Removes all HotProduct entities in a DbSet
         /// </summary>
-        /// <param name="db"> A DbSet of products</param>
-        public void Clear(DbSet<HotProduct> db)
+        /// <param name="db"> A DbSet of hot products</param>
+        private void Clear(DbSet<HotProduct> db)
         {
             foreach (HotProduct item in db)
             {
                 db.Remove(item);
             }
         }
+
         /// <summary>
         /// Read all the documents from a Cosmos DB collection
         /// </summary>
         /// <param name="client">The Client to the Cosmos DB account</param>
         /// <param name="collectionSelfLink">A Link to the Cosmos DB collection</param>
-        /// <returns></returns>
+        /// <returns>A List of dynamic documents read from Cosmos DB</returns>
         private List<dynamic> ReadAllDocumentsInCollectionAsync(DocumentClient client, Uri collectionSelfLink)
         {
             List<dynamic> documents = new List<dynamic>();

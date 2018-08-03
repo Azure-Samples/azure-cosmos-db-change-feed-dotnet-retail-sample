@@ -22,7 +22,6 @@ namespace EcommerceWebApp
             "Men's Button-Up Shirt","Women's Flannel Shirt","Women's Light Jeans","Men's Jeans","Women's Dark Jeans", "Women's Red Top","Men's White Shirt","Women's Pant","Women's Blazer Jacket",
             "Men's Puffy Jacket","Women's Puffy Jacket", "Women's Athletic Shoes","Men's Athletic Shoes","Women's Black Dress","Men's Suit Jacket","Men's Suit Pant","Women's High Heel Shoe",
             "Women's Cardigan Sweater", "Men's Dress Shoes","Unisex Puffy Jacket","Women's Red Dress","Unisex Scarf","Women's White Dress","Unisex Sandals","Women's Bag"};
-            //string rawId = Request.QueryString["ProductID"];
             int productId;
             string productName = Request.QueryString["ProductName"];
             int id = 0;
