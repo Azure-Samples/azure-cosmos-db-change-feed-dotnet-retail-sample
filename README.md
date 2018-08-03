@@ -245,9 +245,9 @@ Azure Stream Analytics is a fully managed cloud service for real-time processing
     	g. Leave **Event serialization format** as **JSON**.  
     	h. Leave **Encoding field** set to **UTF-8**.  
     	i. Leave **Event compression type** field set to **None**.  
-		j. Click the **Save** button.      
-
-![PowerBIInput](/Lab/labpics/MsftPowerBIInput.png)
+		j. Click the **Save** button.
+	
+	![PowerBIInput](/Lab/labpics/PowerBIInput.png)
 
 5. Navigate back to the stream analytics job page, and select **Outputs** as demonstrated below.
 	
