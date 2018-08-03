@@ -212,7 +212,7 @@ and purchasing the items in their carts. This data is arbitrary and for the purp
 	
 	![data7](/Lab/labpics/data7.png)  
 
-12. Wait for the program to run. The stars mean that data is coming in!  
+12. Wait for the program to run. The stars mean that data is coming in! Keep the program running - it is important that lots of data is collected.  
 	
 	![data8](/Lab/labpics/data8.PNG)  
 
@@ -283,7 +283,6 @@ Azure Stream Analytics is a fully managed cloud service for real-time processing
 
 10. Now return to **streamjob1** and click the **Start** button at the top of the page. Azure Stream Analytics can take a few minutes to start up, but eventually you will see it change from "Starting" to "Running".
 
-11. Once the stream is running, go back to **DataGenerator.exe** and if the program has ended, start it **again**. 
 ---
 
 ## <a name="part8"></a>Part 8: Connecting to PowerBI
