@@ -84,7 +84,7 @@ namespace EcommerceWebApp
         }
 
         /// <summary>
-        /// Removes all HotProduc entities in a DbSet
+        /// Removes all HotProduct entities in a DbSet
         /// </summary>
         /// <param name="db"> A DbSet of hot products</param>
         private void Clear(DbSet<HotProduct> db)
