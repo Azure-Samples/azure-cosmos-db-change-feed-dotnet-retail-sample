@@ -18,7 +18,9 @@ namespace EcommerceWebApp.Models
         [Key]
         [Required, StringLength(100), Display(Name = "Name")]
         public string item { get; set; }
+
         public int countevents { get; set; }
+
         [Display(Name = "Price")]
         public int price { get; set; }
 
