@@ -96,8 +96,8 @@ An Azure Cosmos DB collection is a container for data records. You will now crea
 
 
 3. Select **New Collection** from the menu on the top of the page. Then perform the following actions:   
-	a. In the **Database id** field, select **Create new**, then enter **database1**. Leave the **Provision database throughput** box unchecked.   
-	b. In the **Collection id** field, enter **collection1**.  
+	a. In the **Database id** field, select **Create new**, then enter **changefeedlabdatabase**. Leave the **Provision database throughput** box unchecked.   
+	b. In the **Collection id** field, enter **changefeedlabcollection**.  
     c. For **Storage capacity**, select **Unlimited**.  
     d. In the **Partition key** field, enter **/Item**. This is case-sensitive, so please make sure you enter it correctly.   
     e. In the **Throughput** field, enter **10000**.   
@@ -115,7 +115,7 @@ An Azure Cosmos DB collection is a container for data records. You will now crea
 The lease collection coordinates processing the change feed across multiple workers. A separate collection is used to store the leases with one lease per partition.
 
 1. Return to **Data Explorer** and select **New Collection** from the menu on the top of the page. Then perform the following actions:   
-	a. In the **Database id** field, select **Use existing**, then enter **database1**.  
+	a. In the **Database id** field, select **Use existing**, then enter **changefeedlabdatabase**.  
 	b. In the **Collection id** field, enter **leases**.  
     c. For **Storage capacity**, select **Fixed**.   
 	d. Leave the **Throughput** field set to its default value.  
@@ -162,7 +162,7 @@ When a new document is created or modifications are made to a current document i
 3. Navigate to **local.settings.json** in Visual Studio. Then use the values you recorded earlier to fill in the blanks.
 4. Navigate to **ChangeFeedProcessor.cs**. In the parameters for the **Run** function, perform the following actions:   
    
-	a. Replace the text **YOUR COLLECTION NAME HERE** with the name of your collection. If you followed earlier instructions, the name of your collection is **collection1**.   
+	a. Replace the text **YOUR COLLECTION NAME HERE** with the name of your collection. If you followed earlier instructions, the name of your collection is **changefeedlabcollection**.   
    
 	b. Replace the text **YOUR LEASES COLLECTION NAME HERE** with the name of your leases collection. If you followed earlier instructions, the name of your leases collection is **leases**.   
    
@@ -201,7 +201,7 @@ and purchasing the items in their carts. This data is arbitrary and for the purp
 
 8. Within the `<appSettings>` block, add the **URI** and unique **PRIMARY KEY** that you just saved. 
 
-9. Add in the **collection** and **database** names. (These names should be **collection1** and **database1** unless you chose to name yours differently.)
+9. Add in the **collection** and **database** names. (These names should be **changefeedlabcollection** and **changefeedlabdatabase** unless you chose to name yours differently.)
 	
 	![data6](/Lab/labpics/data6.png)  
 
@@ -217,7 +217,7 @@ and purchasing the items in their carts. This data is arbitrary and for the purp
 	![data8](/Lab/labpics/data8.PNG)  
 
 
-13. If you navigate to [Azure Portal ](http://ms.portal.azure.com "Azure Portal "), then to the Cosmos DB account within your resource group, then to **Data Explorer**, you will see the randomized data imported in your collection! Your collection is **collection1** unless you chose to name yours differently.  
+13. If you navigate to [Azure Portal ](http://ms.portal.azure.com "Azure Portal "), then to the Cosmos DB account within your resource group, then to **Data Explorer**, you will see the randomized data imported in your collection! Your collection is **changefeedlabcollection** unless you chose to name yours differently.  
 	
 	![data11](/Lab/labpics/data12.png)
 	
@@ -376,8 +376,8 @@ You will now observe how you can use your new data analysis tool to connect with
 In order to build the e-commerce site, you'll use a Cosmos DB database to store the list of product categories (Women's, Men's, Unisex), the product catalog, and a list of the most popular items.   
    
 1. Navigate back to the **Azure Portal**, then to your **Cosmos DB account**, then to **Data Explorer**.   
-Add two collections under **database1** named **products** and **categories** with **Fixed** storage capacity.   
-Add another collection under **database1** named **topItems** with **Unlimited** storage capacity. Write **/Item** as the partition key.   
+Add two collections under **changefeedlabdatabase** named **products** and **categories** with **Fixed** storage capacity.   
+Add another collection under **changefeedlabdatabase** named **topItems** with **Unlimited** storage capacity. Write **/Item** as the partition key.   
 2. Click on the **topItems** collection, and under **Scale and Settings** set the **Time to Live** to be **30 seconds** so that topItems updates every 30 seconds.  
 
 	![webapp1](/Lab/labpics/webapp15.PNG)  
@@ -440,7 +440,7 @@ If not, proceed to part **5b**.
 
 7. Within the `<appSettings>` block, add the **URI** and **PRIMARY KEY** that you saved earlier where it says **your URI here** and **your primary key here**.   
    
-	Then add in your **database name** and **collection name** as indicated. (These names should be **database1** and **collection1** unless you chose to name yours differently.)   
+	Then add in your **database name** and **collection name** as indicated. (These names should be **changefeedlabdatabase** and **changefeedlabcollection** unless you chose to name yours differently.)   
    
 	Fill in your **products collection name**, **categories collection name**, and **top items collection name** as indicated. (These names should be **products**, **categories**, and **topItems** unless you chose to name yours differently.)
 
@@ -450,7 +450,7 @@ If not, proceed to part **5b**.
 	![webapp3](/Lab/labpics/webapp3.PNG)  
 
 9. Within the `<appSettings>` block, add the **URI** and **PRIMARY KEY** that you saved earlier where indicated.   
-Then add in your **databse name** and **collection name** as indicated. (These names should be **database1** and **collection1** unless you chose to name yours differently.)
+Then add in your **databse name** and **collection name** as indicated. (These names should be **changefeedlabdatabase** and **changefeedlabcollection** unless you chose to name yours differently.)
  
 	![webapp4](/Lab/labpics/webapp4.PNG)  
 
