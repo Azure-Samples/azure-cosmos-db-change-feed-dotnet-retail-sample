@@ -103,7 +103,7 @@ An Azure Cosmos DB collection is a container for data records. You will now crea
     e. In the **Throughput** field, enter **10000**.   
 	f. Click the **OK** button.  
 	
-	![collection4](/Lab/labpics/collection4.PNG = 100x20)  
+	![collection4](/Lab/labpics/collection4.PNG)  
 
 4. Select **Keys** from the menu on the left-hand side. Take the PRIMARY CONNECTION STRING and copy it to a notepad or another document that you will have access to throughout the lab. You should label it **Cosmos DB Connection String**. You'll need to copy the string into your code later, so please take note and remember where you  are storing it.
 	
