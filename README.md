@@ -76,9 +76,9 @@ You will be using [Azure Resource Manager](https://docs.microsoft.com/en-us/azur
 5. Open **Windows PowerShell** again, then navigate to the **Azure Resource Manager** folder and run the following command:  
     ` .\deploy.ps1 `  
 
-6. Once prompted, enter the **Subcription ID** for your Azure subscription (available on [Azure Portal ](http://ms.portal.azure.com "Azure Portal ")), **"changefeedlab"** for your resource group name, and **"run1"** for your deployment name.   
+6. Once prompted, enter the **Subcription ID** for your Azure subscription (available on [Azure Portal ](http://portal.azure.com "Azure Portal ")), **"changefeedlab"** for your resource group name, and **"run1"** for your deployment name.   
    
-	**Note:** If you are having trouble finding your **Subscription ID**, go to the [Azure Portal](http://ms.portal.azure.com "Azure Portal") and search for **Subscriptions**, then select your subscription. You will see the **Subscription ID** in your subscription **Overview**.   
+	**Note:** If you are having trouble finding your **Subscription ID**, go to the [Azure Portal](http://portal.azure.com "Azure Portal") and search for **Subscriptions**, then select your subscription. You will see the **Subscription ID** in your subscription **Overview**.   
    
 7. The resources will begin to deploy. This may take up to 10 minutes.
 
@@ -87,7 +87,7 @@ You will be using [Azure Resource Manager](https://docs.microsoft.com/en-us/azur
 ## <a name="part1"></a>Part 1: Creating A Database and Collection To Load Data Into 
 An Azure Cosmos DB collection is a container for data records. You will now create a collection to hold e-commerce site events. You are building this collection so that, when a user views an item, adds an item to their cart, or purchases an item, the collection will receive a record that includes the action ("viewed", "added", or "purchased"), the name of the item involved, the price of the item involved, and the ID number of the user cart involved. 
 
-1. Navigate to [Azure Portal](http://ms.portal.azure.com "Azure Portal "). Then search for and select your **Azure Cosmos DB Account** that you created and named in the prelab.
+1. Navigate to [Azure Portal](http://portal.azure.com "Azure Portal "). Then search for and select your **Azure Cosmos DB Account** that you created and named in the prelab.
 
 	![collection1](/Lab/labpics/collection1.png)  
 
@@ -185,7 +185,7 @@ and purchasing the items in their carts. This data is arbitrary and for the purp
 	
 	![data1](/Lab/labpics/data1.png)  
 
-2. Navigate to [Azure Portal ](http://ms.portal.azure.com "Azure Portal ").
+2. Navigate to [Azure Portal ](http://portal.azure.com "Azure Portal ").
 3.  Navigate to the resource group that you created during the prelab, and then navigate to the **Azure Cosmos DB account** that you created during the prelab.
 4. Select **Keys**.   
 	
@@ -217,7 +217,7 @@ and purchasing the items in their carts. This data is arbitrary and for the purp
 	![data8](/Lab/labpics/data8.PNG)  
 
 
-13. If you navigate to [Azure Portal ](http://ms.portal.azure.com "Azure Portal "), then to the Cosmos DB account within your resource group, then to **Data Explorer**, you will see the randomized data imported in your collection! Your collection is **changefeedlabcollection** unless you chose to name yours differently.  
+13. If you navigate to [Azure Portal ](http://portal.azure.com "Azure Portal "), then to the Cosmos DB account within your resource group, then to **Data Explorer**, you will see the randomized data imported in your collection! Your collection is **changefeedlabcollection** unless you chose to name yours differently.  
 	
 	![data11](/Lab/labpics/data12.png)
 	
@@ -462,7 +462,7 @@ Then add in your **databse name** and **collection name** as indicated. (These n
 
 11. Now you can play around on the e-commerce site. When you view an item, add an item to your cart, change the quantity of an item in your cart, or purchase an item, these events will be passed through the Cosmos DB change feed to Event Hub, ASA, and then Power BI. We recommend continuing to run DataGenerator to generate significant web traffic data and provide a realistic set of "Hot Products" on the e-commerce site. 
    
-To delete the resources that you created during this lab, navigate to the resource group on [Azure Portal](http://ms.portal.azure.com "Azure Portal "), then select **Delete resource group** from the menu at the top of the page and follow the instructions provided.
+To delete the resources that you created during this lab, navigate to the resource group on [Azure Portal](http://portal.azure.com "Azure Portal "), then select **Delete resource group** from the menu at the top of the page and follow the instructions provided.
 
 #### This is just one example of how the change feed can be used by Cosmos DB customers.   
 
