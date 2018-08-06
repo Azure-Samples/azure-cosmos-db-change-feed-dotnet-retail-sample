@@ -52,14 +52,14 @@ This lab will proceed as follows:
 [Part 6: Inserting Simulated Data into Cosmos DB in Real Time](#part6)  
 [Part 7: Setting Up Azure Stream Analytics and Data Analysis Visualization](#part7)  
 [Part 8: Connecting to PowerBI](#part8)   
-[Part 9: Visualizing with a Real E-Commerce Site (OPTIONAL)](#part9)
+[Optional: Visualizing with a Real E-Commerce Site](#optional)
 
 
 ## <a name="prelab"></a>Pre-Lab: Creating Azure Cosmos DB Resources
 
 You will be using [Azure Resource Manager](https://docs.microsoft.com/en-us/azure/azure-resource-manager/) to create the Azure resources necessary for the lab. 
 
-1. Make sure that you have an **Unrestricted Execution Policy** on your **Windows PowerShell**. To do so, open **Windows PowerShell** and run the following commands:  
+1. Make sure that you have an **Unrestricted Execution Policy** on your **Windows PowerShell**. To do so, open **Windows PowerShell as an Administrator** and run the following commands:  
 
     `Get-ExecutionPolicy  `  
     
@@ -168,7 +168,7 @@ When a new document is created or modifications are made to a current document i
    
 	c. At the top of Visual Studio, make sure that the Startup Project box on the left of the green arrow says **ChangeFeedFunction**, and if it says something else, arrow down and click on **ChangeFeedFunction**.   
    
-	d. Press the start button at the top of the page to run the program. It will look like this green triangle:
+	d. Press the **Start** button at the top of the page to run the program. It will look like this green triangle:
 	![startbutton](/Lab/labpics/startbutton.PNG)   
    
 	e. You will know the function is running when the console app says "Job host started" at the bottom.
@@ -186,7 +186,9 @@ and purchasing the items in their carts. This data is arbitrary and for the purp
 	![data1](/Lab/labpics/data1.png)  
 
 2. Navigate to [Azure Portal ](http://portal.azure.com "Azure Portal ").
-3.  Navigate to the resource group that you created during the prelab, and then navigate to the **Azure Cosmos DB account** that you created during the prelab.
+
+3.  Navigate to the resource group that you created during the prelab (named **changefeedlab** unless you chose otherwise) and then navigate to the **Azure Cosmos DB account** that you created during the prelab.
+
 4. Select **Keys**.   
 	
 	![data5](/Lab/labpics/data5.png)  
@@ -208,11 +210,11 @@ and purchasing the items in their carts. This data is arbitrary and for the purp
 10. Save the changes on all the files edited.   
 
 11. At the top of Visual Studio, make sure that the Startup Project box on the left of the green arrow says **DataGenerator**, and if it says something else, arrow down and click on **DataGenerator**.  
-	Then press the start button at the top of the page to run the program. 
+	Then press the **Start** button at the top of the page to run the program. 
 	
 	![data7](/Lab/labpics/data7.png)  
 
-12. Wait for the program to run. The stars mean that data is coming in!  
+12. Wait for the program to run. The stars mean that data is coming in! Keep the program running - it is important that lots of data is collected.  
 	
 	![data8](/Lab/labpics/data8.PNG)  
 
@@ -226,7 +228,7 @@ and purchasing the items in their carts. This data is arbitrary and for the purp
 ## <a name="part7"></a>Part 7: Setting Up Azure Stream Analytics and Data Analysis Visualization
 Azure Stream Analytics is a fully managed cloud service for real-time processing of streaming data. In this lab, you will use ASA to process new events from the Event Hub (i.e. when an item is viewed, added to a cart, or purchased), incorporate those events into real-time data analysis, and send them into Power BI for visualization.
 
-1. On **Azure Portal**, navigate to your resource group, then to **streamjob1** (the stream analytics job that you created in the prelab).   
+1. On [**Azure Portal**](http://portal.azure.com "Azure Portal "), navigate to your resource group, then to **streamjob1** (the stream analytics job that you created in the prelab).   
 
 2. Select **Inputs** as demonstrated below.
 	
@@ -245,9 +247,9 @@ Azure Stream Analytics is a fully managed cloud service for real-time processing
     	g. Leave **Event serialization format** as **JSON**.  
     	h. Leave **Encoding field** set to **UTF-8**.  
     	i. Leave **Event compression type** field set to **None**.  
-		j. Click the **Save** button.      
-
-![PowerBIInput](/Lab/labpics/MsftPowerBIInput.png)
+		j. Click the **Save** button.
+	
+	![PowerBIInput](/Lab/labpics/PowerBIInput.PNG)
 
 5. Navigate back to the stream analytics job page, and select **Outputs** as demonstrated below.
 	
@@ -283,7 +285,6 @@ Azure Stream Analytics is a fully managed cloud service for real-time processing
 
 10. Now return to **streamjob1** and click the **Start** button at the top of the page. Azure Stream Analytics can take a few minutes to start up, but eventually you will see it change from "Starting" to "Running".
 
-11. Once the stream is running, go back to **DataGenerator.exe** and if the program has ended, start it **again**. 
 ---
 
 ## <a name="part8"></a>Part 8: Connecting to PowerBI
@@ -370,14 +371,15 @@ Power BI is a suite of business analytics tools to analyze data and share insigh
 	![powerbisnap](/Lab/labpics/powerbisnap.png)
 --- 
 
-## <a name="part9"></a>Part 9: Visualizing with a Real E-commerce Site (OPTIONAL)
+## <a name="optional"></a>Optional: Visualizing with a Real E-commerce Site 
 You will now observe how you can use your new data analysis tool to connect with a real e-commerce site.   
 
 In order to build the e-commerce site, you'll use a Cosmos DB database to store the list of product categories (Women's, Men's, Unisex), the product catalog, and a list of the most popular items.   
    
-1. Navigate back to the **Azure Portal**, then to your **Cosmos DB account**, then to **Data Explorer**.   
+1. Navigate back to the [**Azure Portal**](http://portal.azure.com "Azure Portal "), then to your **Cosmos DB account**, then to **Data Explorer**.   
 Add two collections under **changefeedlabdatabase** named **products** and **categories** with **Fixed** storage capacity.   
 Add another collection under **changefeedlabdatabase** named **topItems** with **Unlimited** storage capacity. Write **/Item** as the partition key.   
+
 2. Click on the **topItems** collection, and under **Scale and Settings** set the **Time to Live** to be **30 seconds** so that topItems updates every 30 seconds.  
 
 	![webapp1](/Lab/labpics/webapp15.PNG)  
@@ -455,7 +457,7 @@ Then add in your **databse name** and **collection name** as indicated. (These n
 	![webapp4](/Lab/labpics/webapp4.PNG)  
 
 
-10. Press the green triangle start button at the top of the page to run the program.  
+10. Press **Start** at the top of the page to run the program.  
 
 	![startbutton](/Lab/labpics/startbutton.PNG)  
 

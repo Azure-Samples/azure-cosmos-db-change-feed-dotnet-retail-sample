@@ -76,28 +76,6 @@ namespace DataGenerator
         }
 
         /// <summary>
-        /// Randomly creates an Action using Randomizer from the Bogus library to generate a number between
-        /// 1 and 3 and matches it with an Action.
-        /// </summary>
-        /// <param name="rand"> An instance of Randomizer from the Bogus library. </param>
-        /// <returns> Returns a valid type of Action. </returns>
-        public static Action GetRandomAction(Randomizer rand)
-        {
-            int actionIndex = rand.Number(0, 2);
-            switch (actionIndex)
-            {
-                case 0:
-                    return Action.Viewed;
-                case 1:
-                    return Action.Added;
-                case 2:
-                    return Action.Purchased;
-                default:
-                    throw new Exception($"Oops! Unexpected index. Index: {actionIndex}");
-            }
-        }
-
-        /// <summary>
         /// Method that creates randomized data by generating a random number for the CartID, selecting a 
         /// random item from the list of items, and matching it with a random Action from GetRandomAction(Randomizer r).
         /// </summary>
@@ -118,10 +96,9 @@ namespace DataGenerator
                 "Women's High Heel Shoe", "Women's Cardigan Sweater", "Men's Dress Shoes", "Unisex Puffy Jacket", "Women's Red Dress", "Unisex Scarf",
                 "Women's White Dress", "Unisex Sandals", "Women's Bag"
             };
-
+            
             double[] prices = new double[]
             {
-
                3.75, 8.00, 12.00, 10.00,
                 17.00, 20.00, 14.00, 15.50,
                 9.00, 25.00, 27.00, 21.00, 22.50,
@@ -137,11 +114,11 @@ namespace DataGenerator
            bool loop = true;
            while (loop)
             {
-                int itemIndex = random.Number(0,items.length);
+                int itemIndex = random.Number(0, items.Length);
                 Event e = new Event()
                 {
                     CartID = random.Number(1000, 9999),
-                    Action = GetRandomAction(random),
+                    Action = random.Enum<Action>(),
                     Item = items[itemIndex],
                     Price = prices[itemIndex]
                 };
@@ -173,16 +150,19 @@ namespace DataGenerator
                         Price = e.Price
                     };
                     await InsertData(previousEvent);
-                }
-                //int time = random.Number(0, 500);
-                //System.Threading.Thread.Sleep(time);
-                
+                }               
             }
+
             string key = Console.ReadKey().Key.ToString();
             if (key == " ")
+            {
                 loop = false;
+            }
             else
+            {
                 loop = true;
+            }
+
             CreateData();
         }
 
@@ -190,6 +170,7 @@ namespace DataGenerator
         /// Inserts each event e to the database by using Azure DocumentClient library.
         /// </summary>
         /// <param name="e"> An instance of the Event class representing a user click. </param>/
+        /// <returns>returns a Task</returns>        
         private static async Task InsertData(Event e)
         {
             await Client.CreateDocumentAsync(CollectionUri, e);
