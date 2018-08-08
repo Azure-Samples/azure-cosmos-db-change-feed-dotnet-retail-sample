@@ -105,7 +105,7 @@ namespace EcommerceWebApp.Logic
         /*[InsertData: e] inserts each event e to the database ] by using Azure Document Client library */
         private static void InsertData(Event e)
         {
-           client.CreateDocumentAsync(collectionUri, e);
+           client.CreateDocumentAsync(collectionUri, e).Wait();
         }
 
         /*[Initialize: database, collection, endpoint, authkey, connectionpolicy] initializes the databse given the database name, collection name, 
