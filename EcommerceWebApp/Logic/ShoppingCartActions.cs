@@ -17,6 +17,22 @@ namespace EcommerceWebApp.Logic
         public static string _database;
         public static string _collection;
 
+        static ShoppingCartActions()
+        {
+            ConnectionPolicy connectionPolicy = new ConnectionPolicy();
+            connectionPolicy.UserAgentSuffix = " samples-net/3";
+            connectionPolicy.ConnectionMode = ConnectionMode.Direct;
+            connectionPolicy.ConnectionProtocol = Protocol.Tcp;
+            connectionPolicy.PreferredLocations.Add(LocationNames.WestUS);
+            connectionPolicy.PreferredLocations.Add(LocationNames.NorthEurope);
+            connectionPolicy.PreferredLocations.Add(LocationNames.SoutheastAsia);
+
+            _database = ConfigurationManager.AppSettings["database"];
+            _collection = ConfigurationManager.AppSettings["collection"];
+            client = new DocumentClient(new Uri(ConfigurationManager.AppSettings["endpoint"]), ConfigurationManager.AppSettings["authKey"], connectionPolicy);
+            collectionUri = UriFactory.CreateDocumentCollectionUri(_database, _collection);
+        }
+
         internal class Event
         {
             public string CartID { get; set; }
@@ -75,18 +91,6 @@ namespace EcommerceWebApp.Logic
     
     public void GenerateEventMain(string cartId, string actionEvent, string productName, double unitPrice)
         {
-            ConnectionPolicy connectionPolicy = new ConnectionPolicy();
-            connectionPolicy.UserAgentSuffix = " samples-net/3";
-            connectionPolicy.ConnectionMode = ConnectionMode.Direct;
-            connectionPolicy.ConnectionProtocol = Protocol.Tcp;
-            connectionPolicy.PreferredLocations.Add(LocationNames.WestUS);
-            connectionPolicy.PreferredLocations.Add(LocationNames.NorthEurope);
-            connectionPolicy.PreferredLocations.Add(LocationNames.SoutheastAsia);
-
-            Initialize(ConfigurationManager.AppSettings["database"],
-                                                          ConfigurationManager.AppSettings["collection"],
-                                                          ConfigurationManager.AppSettings["endpoint"],
-                                                          ConfigurationManager.AppSettings["authKey"], connectionPolicy);
             InsertData(GenerateEventHelper(cartId, actionEvent, productName, unitPrice));
         }
 
@@ -105,18 +109,9 @@ namespace EcommerceWebApp.Logic
         /*[InsertData: e] inserts each event e to the database ] by using Azure Document Client library */
         private static void InsertData(Event e)
         {
-           client.CreateDocumentAsync(collectionUri, e);
+           client.CreateDocumentAsync(collectionUri, e).Wait();
         }
 
-        /*[Initialize: database, collection, endpoint, authkey, connectionpolicy] initializes the databse given the database name, collection name, 
-       endpoint Uri, and unique key specified in App.config by using Azure Document Client library*/
-        public static void Initialize(string database, string collection, string endpoint, string authkey, ConnectionPolicy connectionPolicy)
-        {
-            _database = database;
-            _collection = collection;
-            client = new DocumentClient(new Uri(endpoint), authkey, connectionPolicy);
-            collectionUri = UriFactory.CreateDocumentCollectionUri(database, collection);
-        }
         public void Dispose()
     {
       if (_db != null)
