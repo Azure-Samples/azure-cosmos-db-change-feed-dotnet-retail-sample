@@ -4,8 +4,10 @@
    
 #### In this lab, you'll focus on how a company can use the change feed feature to its advantage and understand user patterns with *real-time data analysis visualization*. You will approach the change feed from the perspective of an e-commerce company and work with a collection of events, i.e. records that represent occurrences such as a user viewing an item, adding an item to their cart, or purchasing an item. When one of these events occurs and a new record is consequently created, the change feed will log that record. The change feed will then trigger a series of steps resulting in visualization of metrics analyzing company performance and site activity.
    
-#### Interested in watching a video about the solution before getting started? [Check this out!](https://aka.ms/cosmosdbchangefeedsolution)
-   
+#### Interested in watching a video about the solution before getting started?
+
+[![Azure Change Feed Video](https://img.youtube.com/vi/AYOiMkvxlzo/0.jpg)](https://www.youtube.com/watch?v=AYOiMkvxlzo)
+
 ####  
 New to Azure Cosmos DB? We recommend checking out [Cosmos DB](https://docs.microsoft.com/en-us/azure/cosmos-db/introduction "Cosmos DB")
 
