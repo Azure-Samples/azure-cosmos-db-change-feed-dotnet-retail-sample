@@ -1,30 +1,27 @@
-﻿
+﻿/// <summary>
+/// Deals with initializing all instances the database
+/// </summary>
 namespace EcommerceWebApp.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.Collections.ObjectModel;
     using System.Configuration;
     using System.Data.Entity;
     using System.Linq;
-    using System.Net;
-    using System.Threading.Tasks;
     using Microsoft.Azure.Documents;
     using Microsoft.Azure.Documents.Client;
-
-    using Microsoft.Azure.Documents.Linq;
 
     /// <summary>
     /// Initializes the database of shopping items
     /// </summary>
     public class ProductDatabaseInitializer : DropCreateDatabaseAlways<ProductContext>
     {
-        private static readonly Uri _endpointUri = new Uri(ConfigurationManager.AppSettings["endpoint"]);
-        private static readonly string _primaryKey = ConfigurationManager.AppSettings["authKey"];
-        private static readonly string mainDatabase = ConfigurationManager.AppSettings["database"];
-        private static readonly string productsCollection = ConfigurationManager.AppSettings["productsCollection"];
-        private static readonly string categoriesCollection = ConfigurationManager.AppSettings["categoriesCollection"];
-        private static readonly string hotItemsCollection = ConfigurationManager.AppSettings["hotItemsCollection"];
+        private static readonly Uri EndpointUri = new Uri(ConfigurationManager.AppSettings["endpoint"]);
+        private static readonly string PrimaryKey = ConfigurationManager.AppSettings["authKey"];
+        private static readonly string MainDatabase = ConfigurationManager.AppSettings["database"];
+        private static readonly string ProductsCollection = ConfigurationManager.AppSettings["productsCollection"];
+        private static readonly string CategoriesCollection = ConfigurationManager.AppSettings["categoriesCollection"];
+        private static readonly string HotItemsCollection = ConfigurationManager.AppSettings["hotItemsCollection"];
 
         /// <summary>
         /// Extracts and adds the categories and Products
@@ -32,59 +29,59 @@ namespace EcommerceWebApp.Models
         /// <param name="context">provides the context using ProductContext.cs (which uses DbContext) for the Categories and Products</param>
         protected override void Seed(ProductContext context)
         {
-            Uri collectionSelfLink = UriFactory.CreateDocumentCollectionUri(mainDatabase, productsCollection);
-            Uri collectionSelfLink2 = UriFactory.CreateDocumentCollectionUri(mainDatabase, categoriesCollection);
-            Uri collectionSelfLink3 = UriFactory.CreateDocumentCollectionUri(mainDatabase, hotItemsCollection);
-            DocumentClient Client = new DocumentClient(_endpointUri, _primaryKey);
+            Uri collectionSelfLink = UriFactory.CreateDocumentCollectionUri(MainDatabase, ProductsCollection);
+            Uri collectionSelfLink2 = UriFactory.CreateDocumentCollectionUri(MainDatabase, CategoriesCollection);
+            Uri collectionSelfLink3 = UriFactory.CreateDocumentCollectionUri(MainDatabase, HotItemsCollection);
+            DocumentClient client = new DocumentClient(EndpointUri, PrimaryKey);
 
-            List<dynamic> Categories = ReadAllDocumentsInCollectionAsync(Client, collectionSelfLink2);
-            List<dynamic> Products = ReadAllDocumentsInCollectionAsync(Client, collectionSelfLink);
-            if (Products.Count() <= 0)
+            List<dynamic> categories = ReadAllDocumentsInCollectionAsync(client, collectionSelfLink2);
+            List<dynamic> products = ReadAllDocumentsInCollectionAsync(client, collectionSelfLink);
+            if (products.Count() <= 0)
             {
-                SeedProductsInCosmosDB(Client, collectionSelfLink);
-                Products = ReadAllDocumentsInCollectionAsync(Client, collectionSelfLink);
+                SeedProductsInCosmosDB(client, collectionSelfLink);
+                products = ReadAllDocumentsInCollectionAsync(client, collectionSelfLink);
             }
 
-            if (Categories.Count() <= 0)
+            if (categories.Count() <= 0)
             {
-                seedCategoriesInDB(Client, collectionSelfLink2);
-                Categories = ReadAllDocumentsInCollectionAsync(Client, collectionSelfLink2);
+                SeedCategoriesInDB(client, collectionSelfLink2);
+                categories = ReadAllDocumentsInCollectionAsync(client, collectionSelfLink2);
             }
 
-            List<dynamic> PopularItems = ReadAllDocumentsInCollectionAsync(Client, collectionSelfLink3);
-            List<Product> Items = new List<Product>();
-            List<Category> Catalog = new List<Category>();
-            List<HotProduct> HotProducts = new List<HotProduct>();
+            List<dynamic> popularItems = ReadAllDocumentsInCollectionAsync(client, collectionSelfLink3);
+            List<Product> items = new List<Product>();
+            List<Category> catalog = new List<Category>();
+            List<HotProduct> hotProducts = new List<HotProduct>();
 
-            foreach (dynamic product in Products)
+            foreach (dynamic product in products)
             {
-                Items.Add((Product)product);
+                items.Add((Product)product);
             }
 
-            foreach (dynamic category in Categories)
+            foreach (dynamic category in categories)
             {
-                Catalog.Add((Category)category);
+                catalog.Add((Category)category);
             }
 
-            foreach (dynamic popularItem in PopularItems)
+            foreach (dynamic popularItem in popularItems)
             {
-                if (!HotProducts.Contains((HotProduct)popularItem))
+                if (!hotProducts.Contains((HotProduct)popularItem))
                 {
-                    HotProducts.Add((HotProduct)popularItem);
+                    hotProducts.Add((HotProduct)popularItem);
                 }
             }
 
-            Items.ForEach(product => context.Products.Add(product));
-            Catalog.ForEach(category => context.Categories.Add(category));
-            HotProducts.ForEach(hotitem => context.HotItems.Add(hotitem));
+            items.ForEach(product => context.Products.Add(product));
+            catalog.ForEach(category => context.Categories.Add(category));
+            hotProducts.ForEach(hotitem => context.HotItems.Add(hotitem));
         }
 
         /// <summary>
         /// Reads all the documents in a Cosmos DB collection
         /// </summary>
-        /// <param name="client"> The client to that Cosmos DB account</param>
+        /// <param name="client"> The client to a Cosmos DB account</param>
         /// <param name="collectionSelfLink"> A Uri to the the collection we are looking at</param>
-        /// <returns></returns>
+        /// <returns>A list of type-dynamic documents in a specified collection </returns>
         private static List<dynamic> ReadAllDocumentsInCollectionAsync(DocumentClient client, Uri collectionSelfLink)
         {
             List<dynamic> documents = new List<dynamic>();
@@ -101,9 +98,11 @@ namespace EcommerceWebApp.Models
         }
 
         /// <summary>
-        /// A method for sending the product catalog to a Cosmos DB database
+        /// Sends the products catalog to a CosmosDB collection
         /// </summary>
-        private static void SeedProductsInCosmosDB(DocumentClient Client, Uri collectionSelfLink)
+        /// <param name="client"> The client to a Cosmos DB account</param>
+        /// <param name="collectionSelfLink"> A Uri to the the collection we are looking at</param>
+        private static void SeedProductsInCosmosDB(DocumentClient client, Uri collectionSelfLink)
         {
             List<Product> products = new List<Product>
                 {
@@ -453,7 +452,7 @@ namespace EcommerceWebApp.Models
                 };
             foreach (Product item in products)
             {
-                ResourceResponse<Document> result = Client.CreateDocumentAsync(collectionSelfLink, item).Result;
+                ResourceResponse<Document> result = client.CreateDocumentAsync(collectionSelfLink, item).Result;
             }
         }
 
@@ -462,7 +461,7 @@ namespace EcommerceWebApp.Models
         /// </summary>
         /// <param name="client">A Cosmos DB account Client </param>
         /// <param name="collectionSelfLink2"> A link to a Cosmos DB collection</param>
-        private static void seedCategoriesInDB(DocumentClient client, Uri collectionSelfLink2)
+        private static void SeedCategoriesInDB(DocumentClient client, Uri collectionSelfLink2)
         {
             List<Category> categories = new List<Category>
                 {
