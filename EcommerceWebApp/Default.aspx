@@ -29,12 +29,12 @@
                         <table>
                             <tr>
                                 <td>
-                                    <a href="/ViewProduct.aspx?productName=<%#:Item.item %>&unitPrice=<%#:Item.price %>">
-                                        <%#:Item.item%>  
+                                    <a href="/ViewProduct.aspx?productName=<%#:Item.Item %>&unitPrice=<%#:Item.Price %>">
+                                        <%#:Item.Item%>  
                                     </a>
                                     <br />
                                     <span>
-                                        <b>Price: </b><%#:String.Format("{0:c}", Item.price)%>
+                                        <b>Price: </b><%#:String.Format("{0:c}", Item.Price)%>
                                     </span>
                                     <br />
 

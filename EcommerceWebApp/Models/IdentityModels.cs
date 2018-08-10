@@ -1,15 +1,10 @@
-﻿using System;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using System.Web;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
-using EcommerceWebApp.Models;
-
-namespace EcommerceWebApp.Models
+﻿namespace EcommerceWebApp.Models
 {
+    using System.Security.Claims;
+    using System.Threading.Tasks;
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
+   
     // You can add User data for the user by adding more properties to your User class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
@@ -18,6 +13,7 @@ namespace EcommerceWebApp.Models
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
             var userIdentity = manager.CreateIdentity(this, DefaultAuthenticationTypes.ApplicationCookie);
             // Add custom user claims here
+
             return userIdentity;
         }
 
@@ -44,6 +40,12 @@ namespace EcommerceWebApp.Models
 #region Helpers
 namespace EcommerceWebApp
 {
+    using EcommerceWebApp.Models;
+    using Microsoft.AspNet.Identity;
+    using Microsoft.Owin.Security;
+    using System;
+    using System.Web;
+
     public static class IdentityHelper
     {
         // Used for XSRF when linking external logins
