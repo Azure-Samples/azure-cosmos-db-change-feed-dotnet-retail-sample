@@ -11,7 +11,7 @@
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/bundles/modernizr") %>
     </asp:PlaceHolder>
-    <webopt:bundlereference runat="server" path="~/Content/css" />
+    <webopt:BundleReference runat="server" Path="~/Content/css" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 
 </head>
@@ -50,37 +50,39 @@
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li><a runat="server" id="adminLink" visible="false" 
-                          href="~/Admin/AdminPage">Admin</a></li>
+                        <li><a runat="server" id="adminLink" visible="false"
+                            href="~/Admin/AdminPage">Admin</a></li>
                         <li><a runat="server" href="~/">Home</a></li>
                         <li><a runat="server" href="~/ProductList">Products</a></li>
-                        <li><a runat="server" href="~/ShoppingCart" ID="cartCount">&nbsp;</a></li>
+                        <li><a runat="server" href="~/ShoppingCart" id="cartCount">&nbsp;</a></li>
                         <li><a runat="server" href="~/Default">Hot Items</a></li>
                     </ul>
-              
+
                 </div>
             </div>
         </div>
-        <div id="TitleContent" style="text-align: center">
-            <h3>Change Feed Clothing</h3>
-            <br />  
+        <div id="TitleContent" style="text-align: left">
+            <a runat="server" href="~/">
+                <asp:Image ID="Image1" runat="server" ImageUrl="logo1.jpg" BorderStyle="None" />
+            </a>
+            <br />
         </div>
-         <div id="CategoryMenu" style="text-align: center">       
-            <asp:ListView ID="categoryList"  
-                ItemType="EcommerceWebApp.Models.Category" 
+        <div id="CategoryMenu" style="text-align: center">
+            <asp:ListView ID="categoryList"
+                ItemType="EcommerceWebApp.Models.Category"
                 runat="server"
-                SelectMethod="GetCategories" >
+                SelectMethod="GetCategories">
                 <ItemTemplate>
                     <b style="font-size: large; font-style: normal">
-                    <a href="<%#: GetRouteUrl("ProductsByCategoryRoute", new {categoryName = Item.CategoryName}) %>">
-                        <%#: Item.CategoryName %>
-                    </a>
+                        <a href="<%#: GetRouteUrl("ProductsByCategoryRoute", new {categoryName = Item.CategoryName}) %>">
+                            <%#: Item.CategoryName %>
+                        </a>
                     </b>
                 </ItemTemplate>
-                <ItemSeparatorTemplate>  |  </ItemSeparatorTemplate>
+                <ItemSeparatorTemplate>|  </ItemSeparatorTemplate>
             </asp:ListView>
         </div>
-       
+
         <div class="container body-content">
             <asp:ContentPlaceHolder ID="MainContent" runat="server">
             </asp:ContentPlaceHolder>
