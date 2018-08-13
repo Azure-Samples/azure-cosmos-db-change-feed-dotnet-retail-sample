@@ -114,7 +114,7 @@ namespace DataGenerator
            bool loop = true;
            while (loop)
             {
-                int itemIndex = random.Number(0, items.Length);
+                int itemIndex = random.Number(0, items.Length-1);
                 Event e = new Event()
                 {
                     CartID = random.Number(1000, 9999),
