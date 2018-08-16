@@ -2,6 +2,9 @@
 {
     using System.Data.Entity;
 
+    /// <summary>
+    /// Defines every instance of the local DB
+    /// </summary>
     public class ProductContext : DbContext
     {
         public ProductContext()
