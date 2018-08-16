@@ -1,7 +1,4 @@
-﻿/// <summary>
-/// Deals with initializing all instances the database
-/// </summary>
-namespace EcommerceWebApp.Models
+﻿namespace EcommerceWebApp.Models
 {
     using System;
     using System.Collections.Generic;

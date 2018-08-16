@@ -2,6 +2,9 @@
 {
     using System.ComponentModel.DataAnnotations;
 
+    /// <summary>
+    /// Defines the architecture of every product object
+    /// </summary>
     public class Product
     {
         [ScaffoldColumn(false)]
