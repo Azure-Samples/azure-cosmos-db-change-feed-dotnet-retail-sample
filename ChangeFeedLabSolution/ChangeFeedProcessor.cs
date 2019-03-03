@@ -27,7 +27,7 @@ namespace ChangeFeedFunction
         /// <summary>
         /// Name of the Event Hub.
         /// </summary>
-        private static readonly string EventHubName = "eventhub";
+        private static readonly string EventHubName = "event-hub1";
 
         /// <summary>
         /// Processes modified records from Cosmos DB Collection into the Event Hub.
@@ -36,10 +36,14 @@ namespace ChangeFeedFunction
         /// <param name="log"> Outputs modified records to Event Hub. </param>
         [FunctionName("ChangeFeedProcessor")]
         public static void Run(
-            [CosmosDBTrigger(databaseName: "database1",
-            collectionName: "YOUR COLLECTION NAME HERE",
+            //change database name below if different than specified in the lab
+            [CosmosDBTrigger(databaseName: "changefeedlabdatabase",
+            //change the collection name below if different than specified in the lab
+            collectionName: "changefeedlabcollection",
             ConnectionStringSetting = "DBconnection",
-            LeaseCollectionName = "YOUR LEASES COLLECTION NAME HERE")]IReadOnlyList<Document> documents, TraceWriter log)
+            LeaseConnectionStringSetting = "DBconnection",
+            LeaseCollectionName = "leases",
+            CreateLeaseCollectionIfNotExists = true)]IReadOnlyList<Document> documents, TraceWriter log)
         {
             // Create variable to hold connection string to enable event hub namespace access.
 #pragma warning disable CS0618 // Type or member is obsolete
@@ -47,11 +51,11 @@ namespace ChangeFeedFunction
 #pragma warning restore CS0618 // Type or member is obsolete
 
             // Build connection string to access event hub within event hub namespace.
-            EventHubsConnectionStringBuilder eventHubConnectionStringBuilder = 
+            EventHubsConnectionStringBuilder eventHubConnectionStringBuilder =
                 new EventHubsConnectionStringBuilder(eventHubNamespaceConnection)
-            {
-                EntityPath = EventHubName
-            };
+                {
+                    EntityPath = EventHubName
+                };
 
             // Create event hub client to send change feed events to event hub.
             EventHubClient eventHubClient = EventHubClient.CreateFromConnectionString(eventHubConnectionStringBuilder.ToString());
