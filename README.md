@@ -86,6 +86,8 @@ You will be using [Azure Resource Manager](https://docs.microsoft.com/en-us/azur
    
 7. The resources will begin to deploy. This may take up to 10 minutes.
 
+8. NOTE: if you are running a very recent version of Powershell, you may have an issue with running the script. In this case, since there are only 4 resources, you can try to create them manually (examine the script to see the parameters set). 
+
 ---
 
 ## <a name="part1"></a>Part 1: Creating A Database and Collection To Load Data Into 
@@ -116,14 +118,7 @@ An Azure Cosmos DB collection is a container for data records. You will now crea
 ---
 
 ## <a name="part2"></a>Part 2: Creating A Leases Collection for Change Feed Processing
-The lease collection coordinates processing the change feed across multiple workers. A separate collection is used to store the leases with one lease per partition.
-
-1. Return to **Data Explorer** and select **New Collection** from the menu on the top of the page. Then perform the following actions:   
-	a. In the **Database id** field, select **Use existing**, then enter **changefeedlabdatabase**.  
-	b. In the **Collection id** field, enter **leases**.  
-    c. For **Storage capacity**, select **Fixed**.   
-	d. Leave the **Throughput** field set to its default value.  
-	e. Click the **OK** button.  
+The lease collection coordinates processing the change feed across multiple workers. A separate collection is used to store the leases with one lease per partition. ChangeFeedProcessor.cs does this automatically by setting CreateLeaseCollectionIfNotExists = true, so you do not need to do anything here. When running the solution end-to-end, observe that a collection named "leases" is created. 
 
 ---
 
