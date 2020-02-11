@@ -13,8 +13,9 @@ namespace ChangeFeedFunction
     using System.Collections.Generic;
     using System.Configuration;
     using System.Text;
+    using Azure.Messaging.EventHubs;
+    using Azure.Messaging.EventHubs.Producer;
     using Microsoft.Azure.Documents;
-    using Microsoft.Azure.EventHubs;
     using Microsoft.Azure.WebJobs;
     using Microsoft.Azure.WebJobs.Host;
     using Newtonsoft.Json;
@@ -35,7 +36,7 @@ namespace ChangeFeedFunction
         /// <param name="documents"> Modified records from Cosmos DB collections. </param>
         /// <param name="log"> Outputs modified records to Event Hub. </param>
         [FunctionName("ChangeFeedProcessor")]
-        public static void Run(
+        public static async void Run(
             //change database name below if different than specified in the lab
             [CosmosDBTrigger(databaseName: "changefeedlabdatabase",
             //change the collection name below if different than specified in the lab
@@ -50,25 +51,20 @@ namespace ChangeFeedFunction
             string eventHubNamespaceConnection = ConfigurationSettings.AppSettings["EventHubNamespaceConnection"];
 #pragma warning restore CS0618 // Type or member is obsolete
 
-            // Build connection string to access event hub within event hub namespace.
-            EventHubsConnectionStringBuilder eventHubConnectionStringBuilder =
-                new EventHubsConnectionStringBuilder(eventHubNamespaceConnection)
-                {
-                    EntityPath = EventHubName
-                };
-
-            // Create event hub client to send change feed events to event hub.
-            EventHubClient eventHubClient = EventHubClient.CreateFromConnectionString(eventHubConnectionStringBuilder.ToString());
-
-            // Iterate through modified documents from change feed.
-            foreach (var doc in documents)
+            // Create producer client to send change feed events to event hub.
+            await using (var producer = new EventHubProducerClient(eventHubNamespaceConnection, EventHubName))
             {
-                // Convert documents to json.
-                string json = JsonConvert.SerializeObject(doc);
-                EventData data = new EventData(Encoding.UTF8.GetBytes(json));
-
-                // Use Event Hub client to send the change events to event hub.
-                eventHubClient.SendAsync(data);
+                using EventDataBatch eventBatch = await producer.CreateBatchAsync();
+                // Iterate through modified documents from change feed.
+                foreach (var doc in documents)
+                {
+                    // Convert documents to json.
+                    string json = JsonConvert.SerializeObject(doc);
+                    EventData data = new EventData(Encoding.UTF8.GetBytes(json));
+                    eventBatch.TryAdd(data);
+                }
+                // Use producer  client to send the change events to event hub.
+                await producer.SendAsync(eventBatch);
             }
         }
     }
