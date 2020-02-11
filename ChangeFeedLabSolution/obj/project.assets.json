@@ -1272,11 +1272,10 @@
       ]
     },
     "Microsoft.Azure.EventHubs/2.1.0": {
-      "sha512": "GlZ3xQn+mtfatd/juTh3/C5NvdP50P9geBk+3AcbNoGk1VhxL1CKSyK/Qozg6Lz2SbOhZrbIbVp8Ai5xfOjaCA==",
+      "sha512": "7HqMbqBn35bW2vYmismLdKVbpnuIv7TngAToD0hH0UMHVt/6YZZ63Yu6TP03bpwSTbM0oSX4wtqolBWoz/noIQ==",
       "type": "package",
       "path": "microsoft.azure.eventhubs/2.1.0",
       "files": [
-        ".nupkg.metadata",
         ".signature.p7s",
         "lib/net461/Microsoft.Azure.EventHubs.dll",
         "lib/net461/Microsoft.Azure.EventHubs.xml",
@@ -1530,11 +1529,10 @@
       ]
     },
     "Microsoft.IdentityModel.Clients.ActiveDirectory/3.19.6": {
-      "sha512": "D30r/6txpha0fqShI2TrdwFp8+jYVOwGB68PTs610J4hsW8k71qznJmawlqn1lBqw2xAoCH/AXrtrD6Y9mY1ew==",
+      "sha512": "UCyckAXgPl0CO+fWcW6QDH+lbTYOmC0jQj31m/sA4BfaYLTrr36sBkaGscEJnEUzPW/f9QOr4ZjGcv6dsRpeDw==",
       "type": "package",
       "path": "microsoft.identitymodel.clients.activedirectory/3.19.6",
       "files": [
-        ".nupkg.metadata",
         ".signature.p7s",
         "lib/MonoAndroid7/Microsoft.IdentityModel.Clients.ActiveDirectory.Platform.dll",
         "lib/MonoAndroid7/Microsoft.IdentityModel.Clients.ActiveDirectory.Platform.xml",
@@ -2031,11 +2029,10 @@
       ]
     },
     "System.Diagnostics.DiagnosticSource/4.5.0": {
-      "sha512": "eIHRELiYDQvsMToML81QFkXEEYXUSUT2F28t1SGrevWqP+epFdw80SyAXIKTXOHrIEXReFOEnEr7XlGiC2GgOg==",
+      "sha512": "UumL3CJklk5WyEt0eImPmjeuyY1JgJ7Thmg2hAeZGKCv+9iuuAsoc2wcXjypdo3J8VNEmVCH2Bgn/kIw8NI2bA==",
       "type": "package",
       "path": "system.diagnostics.diagnosticsource/4.5.0",
       "files": [
-        ".nupkg.metadata",
         ".signature.p7s",
         "LICENSE.TXT",
         "THIRD-PARTY-NOTICES.TXT",
@@ -3216,11 +3213,10 @@
       ]
     },
     "System.Reflection.TypeExtensions/4.5.0": {
-      "sha512": "dYSKm+jBVh/I9RQP6AaBiyd92Y6Ml9vEEcTSougcAMSt9X9QQHTGJo0p/uH4uSgODZe+5cuOkgg8wg02NuM0VQ==",
+      "sha512": "jdK7She37kK5gtXbznOVwcfbtCb2vIs8UfMsYd2OFiGLmj+3oXrA3bgUQPzbe3boNJApkA7oLb42nCHQ0g813A==",
       "type": "package",
       "path": "system.reflection.typeextensions/4.5.0",
       "files": [
-        ".nupkg.metadata",
         ".signature.p7s",
         "LICENSE.TXT",
         "THIRD-PARTY-NOTICES.TXT",
@@ -4589,19 +4585,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Administrator\\.nuget\\packages\\": {}
+    "C:\\Users\\t-sedavi\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\work\\eventhubsample\\azure-cosmos-db-change-feed-dotnet-retail-sample\\ChangeFeedLabSolution\\ChangeFeedFunction.csproj",
+      "projectUniqueName": "C:\\Users\\t-sedavi\\source\\repos\\CosmicExplorer\\ChangeFeedLabSolution\\ChangeFeedFunction.csproj",
       "projectName": "ChangeFeedFunction",
-      "projectPath": "D:\\work\\eventhubsample\\azure-cosmos-db-change-feed-dotnet-retail-sample\\ChangeFeedLabSolution\\ChangeFeedFunction.csproj",
-      "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-      "outputPath": "D:\\work\\eventhubsample\\azure-cosmos-db-change-feed-dotnet-retail-sample\\ChangeFeedLabSolution\\obj\\",
+      "projectPath": "C:\\Users\\t-sedavi\\source\\repos\\CosmicExplorer\\ChangeFeedLabSolution\\ChangeFeedFunction.csproj",
+      "packagesPath": "C:\\Users\\t-sedavi\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\t-sedavi\\source\\repos\\CosmicExplorer\\ChangeFeedLabSolution\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+      ],
       "configFilePaths": [
-        "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\t-sedavi\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -4641,8 +4641,7 @@
             "target": "Package",
             "version": "[10.0.1, )"
           }
-        },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
+        }
       }
     }
   },
@@ -4651,7 +4650,7 @@
       "code": "NU1608",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "检测到的包版本在依赖项约束之外: Microsoft.NET.Sdk.Functions 1.0.13 需要 Newtonsoft.Json (= 9.0.1)，但版本 Newtonsoft.Json 10.0.1 已解决。",
+      "message": "Detected package version outside of dependency constraint: Microsoft.NET.Sdk.Functions 1.0.13 requires Newtonsoft.Json (= 9.0.1) but version Newtonsoft.Json 10.0.1 was resolved.",
       "libraryId": "Newtonsoft.Json",
       "targetGraphs": [
         ".NETFramework,Version=v4.6.1"
