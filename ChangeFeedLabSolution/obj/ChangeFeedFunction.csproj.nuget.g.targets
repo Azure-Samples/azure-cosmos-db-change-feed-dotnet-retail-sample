@@ -4,7 +4,6 @@
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
   </PropertyGroup>
   <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
-    <Import Project="$(NuGetPackageRoot)microsoft.net.sdk.functions\1.0.13\build\netstandard1.0\Microsoft.NET.Sdk.Functions.targets" Condition="Exists('$(NuGetPackageRoot)microsoft.net.sdk.functions\1.0.13\build\netstandard1.0\Microsoft.NET.Sdk.Functions.targets')" />
-    <Import Project="$(NuGetPackageRoot)microsoft.azure.documentdb\1.13.2\build\Microsoft.Azure.DocumentDB.targets" Condition="Exists('$(NuGetPackageRoot)microsoft.azure.documentdb\1.13.2\build\Microsoft.Azure.DocumentDB.targets')" />
+    <Import Project="$(NuGetPackageRoot)microsoft.net.sdk.functions\3.0.11\build\Microsoft.NET.Sdk.Functions.targets" Condition="Exists('$(NuGetPackageRoot)microsoft.net.sdk.functions\3.0.11\build\Microsoft.NET.Sdk.Functions.targets')" />
   </ImportGroup>
 </Project>
