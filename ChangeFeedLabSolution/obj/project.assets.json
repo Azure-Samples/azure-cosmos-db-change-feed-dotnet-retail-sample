@@ -8522,11 +8522,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\work\\fork\\luyun\\azure-cosmos-db-change-feed-dotnet-retail-sample\\ChangeFeedFunction\\ChangeFeedFunction.csproj",
+      "projectUniqueName": "D:\\work\\fork\\luyun\\azure-cosmos-db-change-feed-dotnet-retail-sample\\ChangeFeedLabSolution\\ChangeFeedFunction.csproj",
       "projectName": "ChangeFeedFunction",
-      "projectPath": "D:\\work\\fork\\luyun\\azure-cosmos-db-change-feed-dotnet-retail-sample\\ChangeFeedFunction\\ChangeFeedFunction.csproj",
+      "projectPath": "D:\\work\\fork\\luyun\\azure-cosmos-db-change-feed-dotnet-retail-sample\\ChangeFeedLabSolution\\ChangeFeedFunction.csproj",
       "packagesPath": "C:\\Users\\v-luyun.FAREAST\\.nuget\\packages\\",
-      "outputPath": "D:\\work\\fork\\luyun\\azure-cosmos-db-change-feed-dotnet-retail-sample\\ChangeFeedFunction\\obj\\",
+      "outputPath": "D:\\work\\fork\\luyun\\azure-cosmos-db-change-feed-dotnet-retail-sample\\ChangeFeedLabSolution\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

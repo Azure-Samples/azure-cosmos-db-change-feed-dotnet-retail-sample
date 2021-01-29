@@ -32,6 +32,17 @@ namespace ChangeFeedFunction
         /// </summary>
         private const string EventHubName = "event-hub1";
 
+        // Create producer client to send change feed events to event hub.
+        private static Lazy<EventHubProducerClient> lazyClient = new Lazy<EventHubProducerClient>(InitializeEventHubProducerClient);
+        private static EventHubProducerClient producer => lazyClient.Value;
+
+        private static EventHubProducerClient InitializeEventHubProducerClient()
+        {
+            // Create variable to hold connection string to enable event hub namespace access.
+            string eventHubNamespaceConnection = ConfigurationManager.AppSettings["EventHubNamespaceConnection"];
+
+            return new EventHubProducerClient(eventHubNamespaceConnection, EventHubName);
+        }
         /// <summary>
         /// Processes modified records from Cosmos DB Collection into the Event Hub.
         /// </summary>
@@ -48,27 +59,20 @@ namespace ChangeFeedFunction
             LeaseCollectionName = "leases",
             CreateLeaseCollectionIfNotExists = true)]IReadOnlyList<Document> documents, ILogger log)
         {
-            // Create variable to hold connection string to enable event hub namespace access.
-            string eventHubNamespaceConnection = ConfigurationManager.AppSettings["EventHubNamespaceConnection"];
-
-            // Create producer client to send change feed events to event hub.
-            await using (var producer = new EventHubProducerClient(eventHubNamespaceConnection, EventHubName))
+            using EventDataBatch eventBatch = await producer.CreateBatchAsync();
+            // Iterate through modified documents from change feed.
+            foreach (var doc in documents)
             {
-                using EventDataBatch eventBatch = await producer.CreateBatchAsync();
-                // Iterate through modified documents from change feed.
-                foreach (var doc in documents)
+                // Convert documents to Json.
+                string json = JsonSerializer.Serialize(doc);
+                EventData data = new EventData(Encoding.UTF8.GetBytes(json));
+                if (!eventBatch.TryAdd(data))
                 {
-                    // Convert documents to Json.
-                    string json = JsonSerializer.Serialize(doc);
-                    EventData data = new EventData(Encoding.UTF8.GetBytes(json));
-                    if (!eventBatch.TryAdd(data))
-                    {
-                        throw new Exception($"The event at { doc } could not be added.");
-                    }
+                    throw new Exception($"The event at { doc } could not be added.");
                 }
-                // Use the producer to send the change events to Event Hubs.
-                await producer.SendAsync(eventBatch);
             }
+            // Use the producer to send the change events to Event Hubs.
+            await producer.SendAsync(eventBatch);
         }
     }
 }
