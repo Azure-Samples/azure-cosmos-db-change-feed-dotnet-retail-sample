@@ -1,6 +1,6 @@
 //establishing local settings to connect to Azure Cosmos DB
 {
-  "IsEncrypted": false,
+    "IsEncrypted": false,
   "Values": {
     // Key from Azure Storage account
     "AzureWebJobsStorage": "your Storage key here",
