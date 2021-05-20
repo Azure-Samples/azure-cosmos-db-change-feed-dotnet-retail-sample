@@ -60,15 +60,17 @@ namespace ChangeFeedFunction
             CreateLeaseCollectionIfNotExists = true)]IReadOnlyList<Document> documents, ILogger log)
         {
             using EventDataBatch eventBatch = await producer.CreateBatchAsync();
+            int count = 0;
             // Iterate through modified documents from change feed.
             foreach (var doc in documents)
             {
+                count++;
                 // Convert documents to Json.
                 string json = JsonSerializer.Serialize(doc);
                 EventData data = new EventData(Encoding.UTF8.GetBytes(json));
                 if (!eventBatch.TryAdd(data))
                 {
-                    throw new Exception($"The event at { doc } could not be added.");
+                    throw new Exception($"The event at doc{count} could not be added.");
                 }
             }
             // Use the producer to send the change events to Event Hubs.
