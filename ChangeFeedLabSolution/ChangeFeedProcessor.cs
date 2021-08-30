@@ -62,6 +62,7 @@ namespace ChangeFeedFunction
         {
             using EventDataBatch eventBatch = await producer.CreateBatchAsync();
             int count = 0;
+            List<int> errorIndex = new List<int>();
             // Iterate through modified documents from change feed.
             foreach (var doc in documents)
             {
@@ -71,11 +72,17 @@ namespace ChangeFeedFunction
                 EventData data = new EventData(Encoding.UTF8.GetBytes(json));
                 if (!eventBatch.TryAdd(data))
                 {
-                    throw new Exception($"The event at doc{count} could not be added.");
+                    errorIndex.Add(count);
                 }
             }
             // Use the producer to send the change events to Event Hubs.
             await producer.SendAsync(eventBatch);
+
+            if (errorIndex.Count != 0)
+            {
+                string errorDoc = string.Join(",doc", errorIndex.ToArray());
+                throw new Exception($"The event at doc{errorDoc} could not be added.");
+            }
         }
     }
 }
