@@ -33,7 +33,8 @@ namespace ChangeFeedFunction
         private const string EventHubName = "event-hub1";
 
         // Create producer client to send change feed events to event hub.
-        private static Lazy<EventHubProducerClient> lazyClient = new Lazy<EventHubProducerClient>(InitializeEventHubProducerClient);
+        private static readonly Lazy<EventHubProducerClient> lazyClient = new Lazy<EventHubProducerClient>(InitializeEventHubProducerClient);
+
         private static EventHubProducerClient producer => lazyClient.Value;
 
         private static EventHubProducerClient InitializeEventHubProducerClient()
