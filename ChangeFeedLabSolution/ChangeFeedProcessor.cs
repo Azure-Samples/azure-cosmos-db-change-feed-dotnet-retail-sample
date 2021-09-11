@@ -69,7 +69,7 @@ namespace ChangeFeedFunction
                 count++;
                 // Convert documents to Json.
                 string json = JsonSerializer.Serialize(doc);
-                EventData data = new EventData(Encoding.UTF8.GetBytes(json));
+                EventData data = new EventData(json);
                 if (!eventBatch.TryAdd(data))
                 {
                     errorIndex.Add(count);
