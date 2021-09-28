@@ -13,7 +13,6 @@ namespace ChangeFeedFunction
     using System;
     using System.Collections.Generic;
     using System.Configuration;
-    using System.Text;
     using System.Text.Json;
     using System.Threading.Tasks;
     using Azure.Messaging.EventHubs;
@@ -60,28 +59,69 @@ namespace ChangeFeedFunction
             LeaseCollectionName = "leases",
             CreateLeaseCollectionIfNotExists = true)]IReadOnlyList<Document> documents, ILogger log)
         {
-            using EventDataBatch eventBatch = await producer.CreateBatchAsync();
-            int count = 0;
-            List<int> errorIndex = new List<int>();
-            // Iterate through modified documents from change feed.
-            foreach (var doc in documents)
+            var batches = default(IEnumerable<EventDataBatch>);
+            var eventsToSend = new Queue<EventData>();
+
+            try
             {
-                count++;
-                // Convert documents to Json.
-                string json = JsonSerializer.Serialize(doc);
-                EventData data = new EventData(json);
-                if (!eventBatch.TryAdd(data))
+                foreach (var doc in documents)
                 {
-                    errorIndex.Add(count);
+                    string json = JsonSerializer.Serialize(doc);
+                    EventData data = new EventData(json);
+                    eventsToSend.Enqueue(data);
+                }
+
+                batches = await BuildBatchesAsync(eventsToSend, producer);
+                foreach (var batch in batches)
+                {
+                    await producer.SendAsync(batch);
                 }
             }
-            // Use the producer to send the change events to Event Hubs.
-            await producer.SendAsync(eventBatch);
-
-            if (errorIndex.Count != 0)
+            finally
             {
-                string errorDoc = string.Join(",doc", errorIndex.ToArray());
-                throw new Exception($"The event at doc{errorDoc} could not be added.");
+                foreach (EventDataBatch batch in batches ?? Array.Empty<EventDataBatch>())
+                {
+                    batch.Dispose();
+                }
+
+                await producer.CloseAsync();
+            }
+
+            static async Task<IReadOnlyList<EventDataBatch>> BuildBatchesAsync(
+                         Queue<EventData> queuedEvents,
+                         EventHubProducerClient producer)
+            {
+                var batches = new List<EventDataBatch>();
+                var currentBatch = default(EventDataBatch);
+                int index = 0;
+                while (queuedEvents.Count > 0)
+                {
+                    index++;
+                    currentBatch ??= (await producer.CreateBatchAsync().ConfigureAwait(false));
+                    EventData eventData = queuedEvents.Peek();
+
+                    if (!currentBatch.TryAdd(eventData))
+                    {
+                        if (currentBatch.Count == 0)
+                        {
+                            throw new Exception($"The event at { index } could not be added.");
+                        }
+
+                        batches.Add(currentBatch);
+                        currentBatch = default;
+                    }
+                    else
+                    {
+                        queuedEvents.Dequeue();
+                    }
+                }
+
+                if ((currentBatch != default) && (currentBatch.Count > 0))
+                {
+                    batches.Add(currentBatch);
+                }
+
+                return batches;
             }
         }
     }
