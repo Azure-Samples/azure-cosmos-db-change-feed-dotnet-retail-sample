@@ -12,7 +12,6 @@ namespace ChangeFeedFunction
 {
     using System;
     using System.Collections.Generic;
-    using System.Configuration;
     using System.Text.Json;
     using System.Threading.Tasks;
     using Azure.Messaging.EventHubs;
@@ -24,32 +23,24 @@ namespace ChangeFeedFunction
     /// <summary>
     /// Processes events using Cosmos DB Change Feed.
     /// </summary>
-    public static class ChangeFeedProcessor
+    public class ChangeFeedProcessor
     {
         /// <summary>
         /// Name of the Event Hub.
         /// </summary>
-        private const string EventHubName = "event-hub1";
-
-        // Create producer client to send change feed events to event hub.
-        private static readonly Lazy<EventHubProducerClient> lazyClient = new Lazy<EventHubProducerClient>(InitializeEventHubProducerClient);
-
-        private static EventHubProducerClient producer => lazyClient.Value;
-
-        private static EventHubProducerClient InitializeEventHubProducerClient()
+        private EventHubProducerClient eventHubProducerClient;
+        public ChangeFeedProcessor(EventHubProducerClient _eventHubProducerClient)
         {
-            // Create variable to hold connection string to enable event hub namespace access.
-            string eventHubNamespaceConnection = ConfigurationManager.AppSettings["EventHubNamespaceConnection"];
-
-            return new EventHubProducerClient(eventHubNamespaceConnection, EventHubName);
+            eventHubProducerClient = _eventHubProducerClient;
         }
+
         /// <summary>
         /// Processes modified records from Cosmos DB Collection into the Event Hub.
         /// </summary>
         /// <param name="documents"> Modified records from Cosmos DB collections. </param>
         /// <param name="log"> Outputs modified records to Event Hub. </param>
         [FunctionName("ChangeFeedProcessor")]
-        public static async Task Run(
+        public async Task Run(
             //change database name below if different than specified in the lab
             [CosmosDBTrigger(databaseName: "changefeedlabdatabase",
             //change the collection name below if different than specified in the lab
@@ -71,10 +62,11 @@ namespace ChangeFeedFunction
                     eventsToSend.Enqueue(data);
                 }
 
-                batches = await BuildBatchesAsync(eventsToSend, producer);
+                batches = await BuildBatchesAsync(eventsToSend, eventHubProducerClient);
                 foreach (var batch in batches)
                 {
-                    await producer.SendAsync(batch);
+                    await eventHubProducerClient.SendAsync(batch);
+                    batch.Dispose();
                 }
             }
             finally
@@ -84,7 +76,7 @@ namespace ChangeFeedFunction
                     batch.Dispose();
                 }
 
-                await producer.CloseAsync();
+                await eventHubProducerClient.CloseAsync();
             }
 
             static async Task<IReadOnlyList<EventDataBatch>> BuildBatchesAsync(
@@ -104,7 +96,7 @@ namespace ChangeFeedFunction
                     {
                         if (currentBatch.Count == 0)
                         {
-                            throw new Exception($"The event at { index } could not be added.");
+                            throw new Exception($"The event at { index } too large to fit into a batch.");
                         }
 
                         batches.Add(currentBatch);
