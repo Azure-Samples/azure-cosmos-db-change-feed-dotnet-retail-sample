@@ -20,18 +20,12 @@ namespace ChangeFeedFunction
     using Microsoft.Azure.WebJobs;
     using Microsoft.Extensions.Logging;
 
-    /// <summary>
-    /// Processes events using Cosmos DB Change Feed.
-    /// </summary>
     public class ChangeFeedProcessor
     {
-        /// <summary>
-        /// Name of the Event Hub.
-        /// </summary>
-        private EventHubProducerClient eventHubProducerClient;
-        public ChangeFeedProcessor(EventHubProducerClient _eventHubProducerClient)
+        private readonly EventHubProducerClient _eventHubProducerClient;
+        public ChangeFeedProcessor(EventHubProducerClient eventHubProducerClient)
         {
-            eventHubProducerClient = _eventHubProducerClient;
+            _eventHubProducerClient = eventHubProducerClient;
         }
 
         /// <summary>
@@ -62,10 +56,10 @@ namespace ChangeFeedFunction
                     eventsToSend.Enqueue(data);
                 }
 
-                batches = await BuildBatchesAsync(eventsToSend, eventHubProducerClient);
+                batches = await BuildBatchesAsync(eventsToSend, _eventHubProducerClient);
                 foreach (var batch in batches)
                 {
-                    await eventHubProducerClient.SendAsync(batch);
+                    await _eventHubProducerClient.SendAsync(batch);
                     batch.Dispose();
                 }
             }
@@ -75,14 +69,10 @@ namespace ChangeFeedFunction
                 {
                     batch.Dispose();
                 }
-
-                await eventHubProducerClient.CloseAsync();
             }
+        }
 
-            private static async Task<IReadOnlyList<EventDataBatch>> BuildBatchesAsync(
-
-                         Queue<EventData> queuedEvents,
-                         EventHubProducerClient producer)
+            private static async Task<IReadOnlyList<EventDataBatch>> BuildBatchesAsync(Queue<EventData> queuedEvents, EventHubProducerClient producer)
             {
                 var batches = new List<EventDataBatch>();
                 var currentBatch = default(EventDataBatch);
@@ -118,4 +108,3 @@ namespace ChangeFeedFunction
             }
         }
     }
-}
