@@ -79,7 +79,8 @@ namespace ChangeFeedFunction
                 await eventHubProducerClient.CloseAsync();
             }
 
-            static async Task<IReadOnlyList<EventDataBatch>> BuildBatchesAsync(
+            private static async Task<IReadOnlyList<EventDataBatch>> BuildBatchesAsync(
+
                          Queue<EventData> queuedEvents,
                          EventHubProducerClient producer)
             {
