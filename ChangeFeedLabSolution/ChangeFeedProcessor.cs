@@ -10,24 +10,27 @@
 /// </summary>
 namespace ChangeFeedFunction
 {
+    using System;
     using System.Collections.Generic;
-    using System.Configuration;
-    using System.Text;
+    using System.Text.Json;
+    using System.Threading.Tasks;
+    using Azure.Messaging.EventHubs;
+    using Azure.Messaging.EventHubs.Producer;
     using Microsoft.Azure.Documents;
-    using Microsoft.Azure.EventHubs;
     using Microsoft.Azure.WebJobs;
-    using Microsoft.Azure.WebJobs.Host;
-    using Newtonsoft.Json;
+    using Microsoft.Extensions.Logging;
+    using Microsoft.Extensions.Options;
+    using static ChangeFeedFunction.Startup;
 
-    /// <summary>
-    /// Processes events using Cosmos DB Change Feed.
-    /// </summary>
-    public static class ChangeFeedProcessor
+    public class ChangeFeedProcessor
     {
-        /// <summary>
-        /// Name of the Event Hub.
-        /// </summary>
-        private static readonly string EventHubName = "event-hub1";
+        private readonly MyOptions _settings;
+        private readonly EventHubProducerClient _eventHubProducerClient;
+        public ChangeFeedProcessor(IOptions<MyOptions> options)
+        {
+            _settings = options.Value;
+            _eventHubProducerClient =new EventHubProducerClient(_settings.EventHubNamespaceConnection,_settings.EventHubName);
+        }
 
         /// <summary>
         /// Processes modified records from Cosmos DB Collection into the Event Hub.
@@ -35,7 +38,7 @@ namespace ChangeFeedFunction
         /// <param name="documents"> Modified records from Cosmos DB collections. </param>
         /// <param name="log"> Outputs modified records to Event Hub. </param>
         [FunctionName("ChangeFeedProcessor")]
-        public static void Run(
+        public async Task Run(
             //change database name below if different than specified in the lab
             [CosmosDBTrigger(databaseName: "changefeedlabdatabase",
             //change the collection name below if different than specified in the lab
@@ -43,33 +46,69 @@ namespace ChangeFeedFunction
             ConnectionStringSetting = "DBconnection",
             LeaseConnectionStringSetting = "DBconnection",
             LeaseCollectionName = "leases",
-            CreateLeaseCollectionIfNotExists = true)]IReadOnlyList<Document> documents, TraceWriter log)
+            CreateLeaseCollectionIfNotExists = true)]IReadOnlyList<Document> documents, ILogger log)
         {
-            // Create variable to hold connection string to enable event hub namespace access.
-#pragma warning disable CS0618 // Type or member is obsolete
-            string eventHubNamespaceConnection = ConfigurationSettings.AppSettings["EventHubNamespaceConnection"];
-#pragma warning restore CS0618 // Type or member is obsolete
+            var batches = default(IEnumerable<EventDataBatch>);
+            var eventsToSend = new Queue<EventData>();
 
-            // Build connection string to access event hub within event hub namespace.
-            EventHubsConnectionStringBuilder eventHubConnectionStringBuilder =
-                new EventHubsConnectionStringBuilder(eventHubNamespaceConnection)
-                {
-                    EntityPath = EventHubName
-                };
-
-            // Create event hub client to send change feed events to event hub.
-            EventHubClient eventHubClient = EventHubClient.CreateFromConnectionString(eventHubConnectionStringBuilder.ToString());
-
-            // Iterate through modified documents from change feed.
-            foreach (var doc in documents)
+            try
             {
-                // Convert documents to json.
-                string json = JsonConvert.SerializeObject(doc);
-                EventData data = new EventData(Encoding.UTF8.GetBytes(json));
+                foreach (var doc in documents)
+                {
+                    string json = JsonSerializer.Serialize(doc);
+                    EventData data = new EventData(json);
+                    eventsToSend.Enqueue(data);
+                }
 
-                // Use Event Hub client to send the change events to event hub.
-                eventHubClient.SendAsync(data);
+                batches = await BuildBatchesAsync(eventsToSend, _eventHubProducerClient);
+                foreach (var batch in batches)
+                {
+                    await _eventHubProducerClient.SendAsync(batch);
+                    batch.Dispose();
+                }
+            }
+            finally
+            {
+                foreach (EventDataBatch batch in batches ?? Array.Empty<EventDataBatch>())
+                {
+                    batch.Dispose();
+                }
+            }
+        }
+
+            private static async Task<IReadOnlyList<EventDataBatch>> BuildBatchesAsync(Queue<EventData> queuedEvents, EventHubProducerClient producer)
+            {
+                var batches = new List<EventDataBatch>();
+                var currentBatch = default(EventDataBatch);
+                int index = 0;
+                while (queuedEvents.Count > 0)
+                {
+                    index++;
+                    currentBatch ??= (await producer.CreateBatchAsync().ConfigureAwait(false));
+                    EventData eventData = queuedEvents.Peek();
+
+                    if (!currentBatch.TryAdd(eventData))
+                    {
+                        if (currentBatch.Count == 0)
+                        {
+                            throw new Exception($"The event at { index } too large to fit into a batch.");
+                        }
+
+                        batches.Add(currentBatch);
+                        currentBatch = default;
+                    }
+                    else
+                    {
+                        queuedEvents.Dequeue();
+                    }
+                }
+
+                if ((currentBatch != default) && (currentBatch.Count > 0))
+                {
+                    batches.Add(currentBatch);
+                }
+
+                return batches;
             }
         }
     }
-}
