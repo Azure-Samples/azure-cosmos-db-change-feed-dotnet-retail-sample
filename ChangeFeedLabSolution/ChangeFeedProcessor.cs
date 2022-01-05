@@ -19,13 +19,17 @@ namespace ChangeFeedFunction
     using Microsoft.Azure.Documents;
     using Microsoft.Azure.WebJobs;
     using Microsoft.Extensions.Logging;
+    using Microsoft.Extensions.Options;
+    using static ChangeFeedFunction.Startup;
 
     public class ChangeFeedProcessor
     {
+        private readonly MyOptions _settings;
         private readonly EventHubProducerClient _eventHubProducerClient;
-        public ChangeFeedProcessor(EventHubProducerClient eventHubProducerClient)
+        public ChangeFeedProcessor(IOptions<MyOptions> options)
         {
-            _eventHubProducerClient = eventHubProducerClient;
+            _settings = options.Value;
+            _eventHubProducerClient =new EventHubProducerClient(_settings.EventHubNamespaceConnection,_settings.EventHubName);
         }
 
         /// <summary>

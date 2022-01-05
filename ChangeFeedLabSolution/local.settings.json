@@ -4,7 +4,7 @@
     "AzureWebJobsStorage": "your Storage key here",
     "AzureWebJobsDashboard": "your Storage connection string here",
     "DBConnection": "your Cosmos DB connection string here",
-    "EventHubNamespaceConnection": "your Event Hub Namespace connection string here",
-    "EventHubName": "your Event Hub Name here"
+    "MyOptions:EventHubNamespaceConnection": "your Event Hub Namespace connection string here",
+    "MyOptions:EventHubName": "your Event Hub Name here"
   }
 }
