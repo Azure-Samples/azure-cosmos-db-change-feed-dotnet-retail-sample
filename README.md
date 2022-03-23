@@ -53,10 +53,11 @@ This lab will proceed as follows:
 ## <a name="prerequisites"></a>Prerequisites
 - 64-bit Windows 10 Operating System  
 - Microsoft .NET Framework 4.7.1 or higher  
-- Microsoft .NET Core 2.1 (or higher) SDK   
+- Microsoft .NET Core 3.1 (or higher) SDK   
 - Visual Studio with Universal Windows Platform development, .NET desktop development, and ASP.NET and web development workloads
 - Microsoft Azure Subscription  
 - Microsoft Power BI Account 
+- Azure functions core tools
 
 --- 
 
