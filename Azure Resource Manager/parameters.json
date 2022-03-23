@@ -11,7 +11,7 @@
         "database_name": {
             "value": "changefeedlabdatabase"
         },
-        "storageaccount_name": {
+        "storageaccount_name": {//Storage Account name needs to be between 3-24 characters and only numbers and small case letters
             "value": "Fill in a unique storage account name here" //This needs to be a globally unique value, so try including your name and various numbers to get an acceptable name on the first try.
         },
       "eventhub_name": {
